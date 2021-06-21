@@ -1,0 +1,115 @@
+[33m[nodemon] 2.0.7[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] or send SIGHUP to 18 to restart[39m
+[33m[nodemon] watching path(s): webapp/**/*[39m
+[33m[nodemon] watching extensions: js,html,css,ts,vue,json[39m
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 31[39m
+[33m[nodemon] watching 17 files[39m
+(node:39) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 3:25:47 PM
+(node:39) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+[33m[nodemon] files triggering change check: webapp/index.js[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: webapp/index.js[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/index.js[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 56[39m
+(node:65) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:01:33 PM
+[33m[nodemon] files triggering change check: webapp/index.js[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/index.js[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 78[39m
+(node:87) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:02:26 PM
+[33m[nodemon] files triggering change check: webapp/index.js[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: webapp/index.js[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/index.js[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 104[39m
+(node:113) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:03:27 PM
+(node:113) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/public/data/country-by-capital-city.json[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 130[39m
+(node:139) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:10:13 PM
+(node:139) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/public/data/country-by-capital-city.json[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 156[39m
+(node:165) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:11:10 PM
+(node:165) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[33m[nodemon] files triggering change check: webapp/public/data/country-by-capital-city.json[39m
+[33m[nodemon] matched rule: /webapp/**/*[39m
+[33m[nodemon] changes after filters (before/after): 1/1[39m
+[33m[nodemon] delaying restart for 1000ms[39m
+[32m[nodemon] restarting due to changes...[39m
+[33m[nodemon] webapp/public/data/country-by-capital-city.json[39m
+
+[32m[nodemon] starting `/usr/local/bin/exec-node.sh /webapp/index.js`[39m
+[33m[nodemon] spawning[39m
+[33m[nodemon] child pid: 182[39m
+(node:191) Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
+(Use `node --trace-warnings ...` to show where the warning was created)
+App listening on port 8000 started 6/18/2021, 4:11:49 PM
+(node:191) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
