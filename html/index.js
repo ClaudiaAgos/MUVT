@@ -148,6 +148,10 @@ app.post("/post-feedback", function (req, res) {
   res.send("Data received:\n" + JSON.stringify(req.body));
 });
 
+app.post("/deletelement", async function (req, res) {
+  res.send(await mymongo.deleteElement(req.body));
+});
+
 /* ========================== */
 /*                            */
 /*    ACTIVATE NODE SERVER    */

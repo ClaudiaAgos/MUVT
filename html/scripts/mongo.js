@@ -143,14 +143,14 @@ exports.addElement = async function (q) {
   await mongo.close();
 };
 
-exports.deleteElement = async function () {
+exports.deleteElement = async function (q) {
+  console.log(q);
   const mongouri =
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myObj = { id: 4, name: "Antonio", city: "Barcellona" };
-
-  await mongo.db(dbname).collection(collection).deleteOne(myObj);
+  await mongo.db(dbname).collection(collection).deleteOne(q);
+  console.log("Rimosso");
   await mongo.close();
 };
