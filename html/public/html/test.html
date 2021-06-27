@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Client Data</title>
+  </head>
+  <body>
+    <h1>Inserisci un nuovo elemento del database:</h1>
+    <form method="POST" action="/post-feedback">
+      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <br />
+      <label>Condizione:<input type="text" name="condizione" required /></label>
+      <br />
+      <label>Modello:<input type="text" name="modello" required /></label>
+      <br />
+      <label>Prezzo:<input type="text" name="prezzo" required /></label>
+      <br />
+      <label>Tipo:<input type="text" name="tipo" required /></label>
+      <br />
+      <input type="submit" value="Submit" onclick="invioRiuscito()" />
+    </form>
+
+    <script type="text/javascript">
+      function invioRiuscito() {
+        window.alert("Invio riuscito correttamente");
+      }
+    </script>
+  </body>
+</html>

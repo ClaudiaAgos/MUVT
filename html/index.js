@@ -32,8 +32,11 @@ global.startDate = null;
 
 const template = require(global.rootDir + "/scripts/tpl.js");
 const mymongo = require(global.rootDir + "/scripts/mongo.js");
+const { MongoClient, Double } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 /* ========================== */
 /*                            */
@@ -101,6 +104,8 @@ const info = async function (req, res) {
   res.send(await template.generate("info.html", data));
 };
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/info", info);
 app.post("/info", info);
 
@@ -122,8 +127,25 @@ const mongoCredentials = {
 app.get("/db/create", async function (req, res) {
   res.send(await mymongo.create(mongoCredentials));
 });
+
 app.get("/db/search", async function (req, res) {
   res.send(await mymongo.search(req.query, mongoCredentials));
+  //res.send(await mymongo.addElement(mongoCredentials));
+  // res.send(await mymongo.deleteElement(mongoCredentials));
+  // res.end();
+});
+
+// serve un form per catturare l'input, match query
+/*app.get("/db/aggiungi", async function (req, res) {
+  res.send(await mymongo.addElement(mongoCredentials));
+});*/
+
+app.post("/", async function (req, res) {
+  res.send(await mymongo.addElement(req.body));
+});
+
+app.post("/post-feedback", function (req, res) {
+  res.send("Data received:\n" + JSON.stringify(req.body));
 });
 
 /* ========================== */

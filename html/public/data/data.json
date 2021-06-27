@@ -1,0 +1,30 @@
+[
+  {
+    "mezzo": "Bicicletta",
+    "condizione": "Nuova",
+    "modello": "Graziella",
+    "prezzo": 5,
+    "tipo": "Pedale"
+  },
+  {
+    "mezzo": "Bicicletta",
+    "condizione": "Usata",
+    "modello": "Mountain Bike",
+    "prezzo": 15,
+    "tipo": "Pedale"
+  },
+  {
+    "mezzo": "Bicicletta",
+    "condizione": "Nuova",
+    "modello": "Corsa",
+    "prezzo": 5,
+    "tipo": "Pedale"
+  },
+  {
+    "mezzo": "Bicicletta",
+    "condizione": "Nuova",
+    "modello": "Passeggio",
+    "prezzo": 5,
+    "tipo": "Elettrica"
+  }
+]

@@ -22,25 +22,28 @@ Copyright (c) 2021 by Fabio Vitali
 */
 
 /* Dati di prova */
-let fn = "/public/data/country-by-capital-city.json";
-let dbname = "countries";
-let collection = "capitals";
-let fieldname = "country";
+//let fn = "/public/data/country-by-capital-city.json";
 
-const { MongoClient } = require("mongodb");
+let fn = "/public/data/data.json";
+let dbname = "mydb";
+let collection = "person";
+let fieldname = "modello";
+
+const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
 const template = require(global.rootDir + "/scripts/tpl.js");
 
 exports.create = async function (credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
-  const mongouri = "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
   let debug = [];
   try {
     debug.push(
       `Trying to connect to MongoDB with user: '${credentials.user}' and site: '${credentials.site}' and a ${credentials.pwd.length}-character long password...`
     );
-    const mongo = new MongoClient(mongouri);
+    const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
     await mongo.connect();
     debug.push("... managed to connect to MongoDB.");
 
@@ -72,12 +75,11 @@ exports.create = async function (credentials) {
   }
 };
 
-
-
 exports.search = async function (q, credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
- 
-  const mongouri =  "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
   let query = {};
   let debug = [];
   let data = { query: q[fieldname], result: null };
@@ -85,7 +87,7 @@ exports.search = async function (q, credentials) {
     debug.push(
       `Trying to connect to MongoDB with user: '${credentials.user}' and site: '${credentials.site}' and a ${credentials.pwd.length}-character long password...`
     );
-    const mongo = new MongoClient(mongouri);
+    const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
     await mongo.connect();
     debug.push("... managed to connect to MongoDB.");
 
@@ -124,4 +126,31 @@ exports.search = async function (q, credentials) {
 exports.isConnected = async function () {
   let client = await MongoClient.connect(mongouri);
   return !!client && !!client.topology && client.topology.isConnected();
+};
+
+// Inserimento di un elemento
+
+exports.addElement = async function (q) {
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myObj = q;
+
+  await mongo.db(dbname).collection(collection).insertOne(myObj);
+  console.log("Inserito");
+  await mongo.close();
+};
+
+exports.deleteElement = async function () {
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myObj = { id: 4, name: "Antonio", city: "Barcellona" };
+
+  await mongo.db(dbname).collection(collection).deleteOne(myObj);
+  await mongo.close();
 };
