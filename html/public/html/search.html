@@ -87,7 +87,7 @@ Copyright (c) 2021 by Fabio Vitali
 			function ajaxSearch() {
 				$.ajax({
 					url: '/db/search',
-					data: {name: $('#name').val(), ajax:true},
+					data: {modello: $('#modello').val(), ajax:true},
 					success: function (d) {
 						$('#query').html(": "+d.query)
 						let table = []

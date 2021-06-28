@@ -83,6 +83,7 @@ exports.search = async function (q, credentials) {
   let query = {};
   let debug = [];
   let data = { query: q[fieldname], result: null };
+
   try {
     debug.push(
       `Trying to connect to MongoDB with user: '${credentials.user}' and site: '${credentials.site}' and a ${credentials.pwd.length}-character long password...`
@@ -104,6 +105,7 @@ exports.search = async function (q, credentials) {
     debug.push(`... managed to query MongoDB. Found ${result.length} results.`);
 
     data.result = result;
+
     await mongo.close();
     debug.push("Managed to close connection to MongoDB.");
 
@@ -131,6 +133,7 @@ exports.isConnected = async function () {
 // Inserimento di un elemento
 
 exports.addElement = async function (q) {
+  //console.log(q);
   const mongouri =
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });

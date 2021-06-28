@@ -1,5 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" class="hide-scroll">
-  <head> </head>
-  <body></body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>JSON Test</title>
+    <style>
+      #myData {
+        display: flex;
+        white-space: pre-line;
+        border: 0;
+        text-align: center;
+      }
+
+      div {
+        border: 1px solid black;
+        text-align: left;
+        padding: 10px;
+      }
+
+      img {
+        margin-top: 10px;
+        position: relative;
+        width: 200px;
+        height: 150;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myData"></div>
+
+    <script>
+      fetch("/data/data.json")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          appendData(data);
+        })
+        .catch(function (err) {
+          console.log("error: " + err);
+        });
+
+      function appendData(data) {
+        var mainContainer = document.getElementById("myData");
+        for (var i = 0; i < data.length; i++) {
+          var div = document.createElement("div");
+          div.innerHTML =
+            "Mezzo: " +
+            data[i].mezzo +
+            "\nCondizione: " +
+            data[i].condizione +
+            "\nModello: " +
+            data[i].modello +
+            "\nPrezzo: " +
+            data[i].prezzo +
+            "\nTipo: " +
+            data[i].tipo +
+            "\n" +
+            `<img src="` +
+            data[i].foto +
+            `">` +
+            `<button type="submit" onclick="test()"">Prenota</button>`;
+          mainContainer.appendChild(div);
+        }
+      }
+      function test() {
+        window.alert("Prenotato");
+      }
+    </script>
+  </body>
 </html>

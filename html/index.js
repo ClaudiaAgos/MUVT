@@ -37,6 +37,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { urlencoded } = require("express");
 
 /* ========================== */
 /*                            */
@@ -130,17 +131,9 @@ app.get("/db/create", async function (req, res) {
 
 app.get("/db/search", async function (req, res) {
   res.send(await mymongo.search(req.query, mongoCredentials));
-  //res.send(await mymongo.addElement(mongoCredentials));
-  // res.send(await mymongo.deleteElement(mongoCredentials));
-  // res.end();
 });
 
-// serve un form per catturare l'input, match query
-/*app.get("/db/aggiungi", async function (req, res) {
-  res.send(await mymongo.addElement(mongoCredentials));
-});*/
-
-app.post("/", async function (req, res) {
+app.post("/post-feedback", async function (req, res) {
   res.send(await mymongo.addElement(req.body));
 });
 
