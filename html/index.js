@@ -133,8 +133,8 @@ app.get("/db/search", async function (req, res) {
   res.send(await mymongo.search(req.query, mongoCredentials));
 });
 
-app.post("/post-feedback", async function (req, res) {
-  res.send(await mymongo.addElement(req.body));
+app.post("/insert", async function (req, res) {
+  res.status(204).send(await mymongo.addElement(req.body));
 });
 
 app.post("/post-feedback", function (req, res) {
@@ -142,7 +142,7 @@ app.post("/post-feedback", function (req, res) {
 });
 
 app.post("/deletelement", async function (req, res) {
-  res.send(await mymongo.deleteElement(req.body));
+  res.status(204).send(await mymongo.deleteElement(req.body));
 });
 
 /* ========================== */

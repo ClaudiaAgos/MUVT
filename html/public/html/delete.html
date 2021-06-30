@@ -15,6 +15,12 @@
       <label>Mezzo:<input type="text" name="mezzo" required /></label>
       <br />
       <input type="submit" value="Submit" />
+      <button type="reset" id="refresh">Reset</button>
     </form>
+    <script>
+      $("#refresh").click(function () {
+        location.reload();
+      });
+    </script>
   </body>
 </html>
