@@ -5,6 +5,7 @@
     "modello": "Graziella",
     "prezzo": 5,
     "tipo": "Pedale",
+    "disponibilità": true,
     "foto": "https://manzocicli.it/wp-content/uploads/2020/06/graziella-sansalvador.jpg"
   },
   {
@@ -13,6 +14,7 @@
     "modello": "Mountain Bike",
     "prezzo": 15,
     "tipo": "Pedale",
+    "disponibilità": true,
     "foto": "https://images-na.ssl-images-amazon.com/images/I/61RBG2NypKL._AC_SX569_.jpg"
   },
   {
@@ -21,6 +23,7 @@
     "modello": "Corsa",
     "prezzo": 5,
     "tipo": "Pedale",
+    "disponibilità": true,
     "foto": "https://www.giulianibikestore.it/wp-content/uploads/2019/05/road.jpg"
   },
   {
@@ -29,6 +32,7 @@
     "modello": "Passeggio",
     "prezzo": 5,
     "tipo": "Elettrica",
+    "disponibilità": true,
     "foto": "https://images.eprice.it/nobrand/0/Lightbox/343/208211343/346766C5-DCE5-4CA4-A00D-F0BD37EC87EB.jpg"
   }
 ]

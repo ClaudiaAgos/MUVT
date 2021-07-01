@@ -22,16 +22,21 @@ Copyright (c) 2021 by Fabio Vitali
 */
 
 /* Dati di prova */
-//let fn = "/public/data/country-by-capital-city.json";
 
-let fn = "/public/data/data.json";
+let fn = [
+  "/public/data/oggetti.json",
+  "/public/data/utenti.json",
+  "/public/data/noleggi.json",
+];
 let dbname = "mydb";
-let collection = "person";
+let collection = ["oggetti", "utenti", "noleggi"];
 let fieldname = "modello";
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
 const template = require(global.rootDir + "/scripts/tpl.js");
+
+// Carica dati esistenti
 
 exports.create = async function (credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
@@ -47,26 +52,53 @@ exports.create = async function (credentials) {
     await mongo.connect();
     debug.push("... managed to connect to MongoDB.");
 
-    debug.push(`Trying to read file '${fn}'... `);
-    let doc = await fs.readFile(rootDir + fn, "utf8");
+    for (let i = 0; i < fn.length; i++) {
+      debug.push(`Trying to read file '${fn[i]}'... `);
+    }
+
+    let doc = await fs.readFile(rootDir + fn[0], "utf8");
+    let doc1 = await fs.readFile(rootDir + fn[1], "utf-8");
     let data = JSON.parse(doc);
+    let data1 = JSON.parse(doc1);
+
     debug.push(`... read ${data.length} records successfully. `);
 
     debug.push(`Trying to remove all records in table '${dbname}'... `);
-    let cleared = await mongo.db(dbname).collection(collection).deleteMany();
-    debug.push(`... ${cleared?.result?.n || 0} records deleted.`);
+    let cleared = await mongo.db(dbname).collection(collection[0]).deleteMany();
+    let cleared1 = await mongo
+      .db(dbname)
+      .collection(collection[1])
+      .deleteMany();
 
-    debug.push(`Trying to add ${data.length} new records... `);
-    let added = await mongo.db(dbname).collection(collection).insertMany(data);
+    debug.push(`... ${cleared?.result?.n || 0} records deleted.`);
+    debug.push(`... ${cleared1?.result?.n || 0} records deleted.`);
+
+    debug.push(
+      `Trying to add ${data.length} new records to ${collection[0]} collection... `
+    );
+
+    let added = await mongo
+      .db(dbname)
+      .collection(collection[0])
+      .insertMany(data);
+
+    let added1 = await mongo
+      .db(dbname)
+      .collection(collection[1])
+      .insertMany(data1);
+
     debug.push(`... ${added?.result?.n || 0} records added.`);
+    debug.push(`... ${added1?.result?.n || 0} records added.`);
 
     await mongo.close();
     debug.push("Managed to close connection to MongoDB.");
 
     return {
-      message: `<h1>Removed ${cleared?.result?.n || 0} records, added ${
-        added?.result?.n || 0
-      } records</h1>`,
+      message: `<h1>Removed ${cleared?.result?.n || 0} records of collection: ${
+        collection[0]
+      }, added ${added?.result?.n || 0} records to collection: ${
+        collection[0]
+      }</h1>`,
       debug: debug,
     };
   } catch (e) {
@@ -97,7 +129,7 @@ exports.search = async function (q, credentials) {
     query[fieldname] = { $regex: q[fieldname], $options: "i" };
     await mongo
       .db(dbname)
-      .collection(collection)
+      .collection(collection[0])
       .find(query)
       .forEach((r) => {
         result.push(r);
@@ -141,7 +173,7 @@ exports.addElement = async function (q) {
 
   var myObj = q;
 
-  await mongo.db(dbname).collection(collection).insertOne(myObj);
+  await mongo.db(dbname).collection(collection[0]).insertOne(myObj);
   console.log("Inserito");
   await mongo.close();
 };
@@ -153,7 +185,26 @@ exports.deleteElement = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  await mongo.db(dbname).collection(collection).deleteOne(q);
+  await mongo.db(dbname).collection(collection[0]).deleteOne(q);
   console.log("Rimosso");
   await mongo.close();
+};
+
+exports.updateElement = async function () {
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myquery = { disponibilità: true };
+  var newvalues = { $set: { disponibilità: false } };
+
+  await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .updateOne(myquery, newvalues, function (err, res) {
+      if (err) throw err;
+      console.log("Aggiornato");
+      mongo.close();
+    });
 };

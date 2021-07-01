@@ -32,7 +32,7 @@
     <div id="myData"></div>
 
     <script>
-      fetch("/data/data.json")
+      fetch("/data/oggetti.json")
         .then(function (response) {
           return response.json();
         })
@@ -48,6 +48,8 @@
         for (var i = 0; i < data.length; i++) {
           var div = document.createElement("div");
           div.innerHTML =
+            `<div>` +
+            `<form action="/testUpdate" method="post">` +
             "Mezzo: " +
             data[i].mezzo +
             "\nCondizione: " +
@@ -62,7 +64,9 @@
             `<img src="` +
             data[i].foto +
             `">` +
-            `<button type="submit" onclick="test()"">Prenota</button>`;
+            `<input type="submit" value="submit">` +
+            `</form>` +
+            `</div>`;
           mainContainer.appendChild(div);
         }
       }
