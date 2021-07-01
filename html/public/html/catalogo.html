@@ -31,6 +31,19 @@
   <body>
     <div id="myData"></div>
 
+    <br />
+    <h1>Scegli quale oggetto modificare</h1>
+    <form method="POST" action="/testUpdate">
+      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <br />
+      <label>Modello:<input type="text" name="modello" required /></label>
+      <br />
+      <label>Tipo:<input type="text" name="tipo" required /></label>
+      <br />
+      <input type="submit" value="Submit" />
+      <button type="reset" id="refresh">Reset</button>
+    </form>
+
     <script>
       fetch("/data/oggetti.json")
         .then(function (response) {
@@ -64,7 +77,6 @@
             `<img src="` +
             data[i].foto +
             `">` +
-            `<input type="submit" value="submit">` +
             `</form>` +
             `</div>`;
           mainContainer.appendChild(div);

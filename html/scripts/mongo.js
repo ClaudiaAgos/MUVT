@@ -32,6 +32,14 @@ let dbname = "mydb";
 let collection = ["oggetti", "utenti", "noleggi"];
 let fieldname = "modello";
 
+let username = "username";
+let password = "password";
+let ruolo = "ruolo";
+
+let newUser = "usernameNew";
+let newPassword = "passwordNew";
+let newRole = "ruoloNew";
+
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
 const template = require(global.rootDir + "/scripts/tpl.js");
@@ -185,26 +193,78 @@ exports.deleteElement = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  await mongo.db(dbname).collection(collection[0]).deleteOne(q);
+  await mongo.db(dbname).collection(collection[0]).findOneAndDelete(q);
+
   console.log("Rimosso");
   await mongo.close();
 };
 
-exports.updateElement = async function () {
+exports.updateElement = async function (q) {
   const mongouri =
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myquery = { disponibilità: true };
+  // se è già true, setta tutto a false
+  // se è già false, setta solo il primo a tru
+  var myquery = q;
   var newvalues = { $set: { disponibilità: false } };
 
-  await mongo
+  mongo
     .db(dbname)
     .collection(collection[0])
-    .updateOne(myquery, newvalues, function (err, res) {
+    .updateOne(myquery, newvalues, function (err) {
       if (err) throw err;
       console.log("Aggiornato");
+      mongo.close();
+    });
+};
+
+exports.insertCliente = async function (q) {
+  console.log(q);
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myObj = q;
+
+  await mongo.db(dbname).collection(collection[1]).insertOne(myObj);
+  console.log("Cliente inserito");
+  await mongo.close();
+};
+
+exports.deleteCliente = async function (q) {
+  console.log(q);
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  await mongo.db(dbname).collection(collection[1]).deleteOne(q);
+  console.log("Cliente rimosso");
+  await mongo.close();
+};
+
+exports.updateCliente = async function (q) {
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+  // q[newUser] = { $regex: q[newUser], $options: "i" };
+
+  // se è già true, setta tutto a false
+  // se è già false, setta solo il primo a tru
+  //var myquery = q;
+  //var newvalues = { $set: { username: "giacomo" } };
+
+  mongo
+    .db(dbname)
+    .collection(collection[1])
+    .find(q[username])
+    .toArray(function (err, result) {
+      if (err) throw err;
+      console.log(result);
       mongo.close();
     });
 };

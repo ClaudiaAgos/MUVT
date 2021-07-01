@@ -146,7 +146,18 @@ app.post("/deletelement", async function (req, res) {
 });
 
 app.post("/testUpdate", async function (req, res) {
-  res.status(204).send(await mymongo.updateElement());
+  res.status(204).send(await mymongo.updateElement(req.body));
+});
+
+app.post("/insertCliente", async function (req, res) {
+  res.status(204).send(await mymongo.insertCliente(req.body));
+});
+app.post("/deleteCliente", async function (req, res) {
+  res.status(204).send(await mymongo.deleteCliente(req.body));
+});
+
+app.post("/updateCliente", async function (req, res) {
+  res.status(204).send(await mymongo.updateCliente(req.body));
 });
 
 /* ========================== */
