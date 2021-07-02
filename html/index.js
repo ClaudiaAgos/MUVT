@@ -137,12 +137,27 @@ app.post("/insert", async function (req, res) {
   res.status(204).send(await mymongo.addElement(req.body));
 });
 
-app.post("/post-feedback", function (req, res) {
+app.post("/post-feedback", async function (req, res) {
   res.send("Data received:\n" + JSON.stringify(req.body));
 });
 
 app.post("/deletelement", async function (req, res) {
   res.status(204).send(await mymongo.deleteElement(req.body));
+});
+
+app.post("/testUpdate", async function (req, res) {
+  res.status(204).send(await mymongo.updateElement(req.body));
+});
+
+app.post("/insertCliente", async function (req, res) {
+  res.status(204).send(await mymongo.insertCliente(req.body));
+});
+app.post("/deleteCliente", async function (req, res) {
+  res.status(204).send(await mymongo.deleteCliente(req.body));
+});
+
+app.post("/updateCliente", async function (req, res) {
+  res.status(204).send(await mymongo.updateCliente(req.body));
 });
 
 /* ========================== */
