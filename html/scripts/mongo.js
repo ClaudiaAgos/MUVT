@@ -207,15 +207,22 @@ exports.updateElement = async function (q) {
 
   // se è già true, setta tutto a false
   // se è già false, setta solo il primo a tru
-  var myquery = q;
-  var newvalues = { $set: { disponibilità: false } };
+  var newvalues = {
+    $set: {
+      mezzo: q.mezzoN,
+      condizione: q.condizioneN,
+      modello: q.modelloN,
+      prezzo: q.prezzoN,
+      tipo: q.prezzoN,
+    },
+  };
 
   mongo
     .db(dbname)
     .collection(collection[0])
-    .updateOne(myquery, newvalues, function (err) {
+    .findOneAndUpdate(myquery, newvalues, function (err) {
       if (err) throw err;
-      console.log("Aggiornato");
+      console.log("Oggetto aggiornato");
       mongo.close();
     });
 };
@@ -252,18 +259,16 @@ exports.updateCliente = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  console.log(q);
   var myquery = { username: q.username, ruolo: q.ruolo };
 
   var newvalues = { $set: { username: q.usernameNew, ruolo: q.ruoloNew } };
 
-  console.log(newvalues);
   mongo
     .db(dbname)
     .collection(collection[1])
     .findOneAndUpdate(myquery, newvalues, function (err) {
       if (err) throw err;
-      console.log("Aggiornato");
+      console.log("Cliente aggiornato");
       mongo.close();
     });
 };
