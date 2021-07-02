@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Lista Clienti</title>
+  <style>
+    #myCli {
+      position: absolute;
+      white-space: pre-line;
+      margin-top: 20px;
+      border: 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    div {
+      border: 1px solid black;
+      text-align: left;
+      padding: 10px;
+    }
+    button{
+
+    }
+
+  </style>
+</head>
+<body>
+<div id="myCli"></div>
+<button type="submit" onclick="add()">Aggiungi</button>
+<script>
+  fetch("/data/utenti.json")
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (utenti) {
+            appendData(utenti);
+          })
+          .catch(function (err) {
+            console.log("error: " + err);
+          });
+
+  function appendData(utenti) {
+    var mainContainer = document.getElementById("myCli");
+    for (var i = 0; i < utenti.length; i++) {
+      var div = document.createElement("div");
+      div.innerHTML =
+              "Username: " +
+              utenti[i].username +
+              "\nPassword " +
+              utenti[i].password +
+              "\nRuolo " +
+              utenti[i].ruolo +
+              "\n" +
+             `<button type="submit" onclick="modifica()">modifica</button>` +
+             `<button type="submit" onclick="elimina()">delete</button>`;
+
+      mainContainer.appendChild(div);
+    }
+  }
+  function modifica() {
+    window.alert("modifica");
+  }
+  function elimina() {
+    window.alert("are you sure you want to delete it?");
+  }
+  function add(){ù
+  }
+</script>
+</body>
+</html>

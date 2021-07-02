@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <title>Client Data</title>
+</head>
+<body>
+<h1>Inserisci un nuovo elemento del database:</h1>
+<form method="POST" action="/insert">
+  <label>Username:<input type="text" name="username" required /></label>
+  <br />
+  <label>Password:<input type="text" name="password" required /></label>
+  <br />
+  <label>Ruolo:<input type="text" name="ruolo" required /></label>
+   <input type="submit" value="Submit" />
+  <button type="reset" id="refresh">Reset</button>
+</form>
+<script>
+  $("#refresh").click(function () {
+    location.reload();
+  });
+</script>
+</body>
+</html>

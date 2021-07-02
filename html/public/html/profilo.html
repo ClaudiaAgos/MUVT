@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profilo Personale</title>
+</head>
+<body>
+ <h3>Il tuo profilo</h3>
+
+</body>
+<script>
+  fetch("/data/utenti.json")
+    .then(function (response){
+      return response.json();
+    })
+          .then(function (data) {
+            appendData(data);
+          })
+          .catch(function (err) {
+            console.log("error: " + err);
+          });
+
+  function appendData(data) {
+    var mainContainer = document.getElementById("myData");
+    for (var i = 0; i < data.length; i++) {
+      var div = document.createElement("div");
+      div.innerHTML =
+              "Mezzo: " +
+              data[i].mezzo +
+              "\nCondizione: " +
+              data[i].condizione +
+              "\nModello: " +
+              data[i].modello +
+              "\nPrezzo: " +
+              data[i].prezzo +
+              "\nTipo: " +
+              data[i].tipo +
+              "\n" +
+              `<img src="` +
+              data[i].foto +
+              `">` +
+              `<button type="submit" onclick="test()"">Prenota</button>`;
+      mainContainer.appendChild(div);
+    }
+  }
+  function test() {
+    window.alert("Prenotato");
+  }
+
+</script>
+</html>
