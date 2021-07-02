@@ -170,7 +170,7 @@ exports.isConnected = async function () {
   return !!client && !!client.topology && client.topology.isConnected();
 };
 
-// Inserimento di un elemento
+// Inserimento di un elemento da amministratore
 
 exports.addElement = async function (q) {
   //console.log(q);
@@ -230,7 +230,7 @@ exports.insertCliente = async function (q) {
   var myObj = q;
 
   await mongo.db(dbname).collection(collection[1]).insertOne(myObj);
-  console.log("Cliente inserito");
+
   await mongo.close();
 };
 
@@ -251,20 +251,19 @@ exports.updateCliente = async function (q) {
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
-  // q[newUser] = { $regex: q[newUser], $options: "i" };
 
-  // se è già true, setta tutto a false
-  // se è già false, setta solo il primo a tru
-  //var myquery = q;
-  //var newvalues = { $set: { username: "giacomo" } };
+  console.log(q);
+  var myquery = { username: q.username, ruolo: q.ruolo };
 
+  var newvalues = { $set: { username: q.usernameNew, ruolo: q.ruoloNew } };
+
+  console.log(newvalues);
   mongo
     .db(dbname)
     .collection(collection[1])
-    .find(q[username])
-    .toArray(function (err, result) {
+    .findOneAndUpdate(myquery, newvalues, function (err) {
       if (err) throw err;
-      console.log(result);
+      console.log("Aggiornato");
       mongo.close();
     });
 };
