@@ -26,6 +26,26 @@
     <div id="myCli"></div>
     <button type="submit" onclick="add()">Aggiungi</button>
 
+    <br />
+
+    <div id="formdiv">
+      <form id="myform" method="post" action="/updateCliente">
+        <label>Username:<input type="text" name="username" required /></label>
+        <br />
+        <label>Ruolo:<input type="text" name="ruolo" required /></label>
+        <br />
+        <h3>NUOVI DATI</h3>
+        <label
+          >Username:<input type="text" name="usernameNew" required
+        /></label>
+        <br />
+        <label>Ruolo:<input type="text" name="ruoloNew" required /></label>
+        <br />
+
+        <input type="submit" value="Modifica" />
+      </form>
+    </div>
+
     <script>
       fetch("/data/utenti.json")
         .then(function (response) {
@@ -52,13 +72,10 @@
             "\n" +
             `<button type="submit" onclick="modifica()">modifica</button>` +
             `<button type="submit" onclick="elimina()">delete</button>`;
-
           mainContainer.appendChild(div);
         }
       }
-      function modifica() {
-        window.alert("modifica");
-      }
+      function modifica() {}
       function elimina() {
         window.alert("are you sure you want to delete it?");
       }
