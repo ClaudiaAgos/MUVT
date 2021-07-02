@@ -32,14 +32,6 @@ let dbname = "mydb";
 let collection = ["oggetti", "utenti", "noleggi"];
 let fieldname = "modello";
 
-let username = "username";
-let password = "password";
-let ruolo = "ruolo";
-
-let newUser = "usernameNew";
-let newPassword = "passwordNew";
-let newRole = "ruoloNew";
-
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
 const template = require(global.rootDir + "/scripts/tpl.js");
@@ -204,18 +196,6 @@ exports.updateElement = async function (q) {
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
-
-  // se è già true, setta tutto a false
-  // se è già false, setta solo il primo a tru
-  var newvalues = {
-    $set: {
-      mezzo: q.mezzoN,
-      condizione: q.condizioneN,
-      modello: q.modelloN,
-      prezzo: q.prezzoN,
-      tipo: q.prezzoN,
-    },
-  };
 
   mongo
     .db(dbname)
