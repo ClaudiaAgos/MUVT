@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-[{
-  "_id": {
-    "$oid": "60ddbca87073b60e30276a5b"
-  },
-  "username": "giacomo",
-  "password": "111",
-  "ruolo": "cliente"
-},{
-  "username": "lucaBianchi",
-  "password": "222",
-  "ruolo": "cliente"
-},{
-  "username": "marcoLucia",
-  "password": "333",
-  "ruolo": "cliente"
-}
-]
-=======
 [
   {
     "username": "marioRossi",
@@ -39,4 +20,3 @@
     "ruolo": "admin"
   }
 ]
->>>>>>> eb2721fdf39e2860b3017f6ed421f74597645d75
