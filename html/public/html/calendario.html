@@ -9,5 +9,53 @@
   </form>
   
   <p><strong>Note:</strong> type="date" is not supported in Safari or Internet Explorer 11 (or earlier).</p>
+
+
+
+
+  <h1>TEST AGGIUNTA CLIENTE DA AMMINISTRATORE</h1>
+  <form method="POST" action="/insertCliente">
+    <label>Username:<input type="text" name="username" required /></label>
+    <br />
+    <label>Password:<input type="password" name="password" required /></label>
+    <br />
+    <label>Ruolo:<input type="text" name="ruolo" required /></label>
+    <br />
+    <input type="submit" value="Aggiungi" />
+  </form>
+
+  <h1>TEST RIMOZIONE CLIENTE DA AMMINISTRATORE</h1>
+
+  <br>
+  <form method="POST" action="/deleteCliente">
+    <label>Username:<input type="text" name="username" required /></label>
+    <br />
+    <label>Password:<input type="password" name="password" required /></label>
+    <br />
+    <label>Ruolo:<input type="text" name="ruolo" required /></label>
+    <br />
+    <input type="submit" value="Rimuovi" />
+  </form>
+
+
+  <h1>TEST MODIFICA CLIENTE DA AMMINISTRATORE</h1>
+
+  <br>
+  <form method="post" action="/updateCliente">
+    <label>Username:<input type="text" name="username" required /></label>
+    <br />
+    <label>Ruolo:<input type="text" name="ruolo" required /></label>
+    <br />
+    <h3>NUOVI DATI</h3>
+    <label>Username:<input type="text" name="usernameNew" required /></label>
+    <br />
+    <label>Ruolo:<input type="text" name="ruoloNew" required /></label>
+    <br />
+
+    <input type="submit" value="Modifica" />
+  </form>
+
+<br>
+
   </body>
 </html>

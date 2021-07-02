@@ -31,8 +31,21 @@
   <body>
     <div id="myData"></div>
 
+    <br />
+    <h1>Scegli quale oggetto modificare</h1>
+    <form method="POST" action="/testUpdate">
+      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <br />
+      <label>Modello:<input type="text" name="modello" required /></label>
+      <br />
+      <label>Tipo:<input type="text" name="tipo" required /></label>
+      <br />
+      <input type="submit" value="Submit" />
+      <button type="reset" id="refresh">Reset</button>
+    </form>
+
     <script>
-      fetch("/data/data.json")
+      fetch("/data/oggetti.json")
         .then(function (response) {
           return response.json();
         })
@@ -48,6 +61,8 @@
         for (var i = 0; i < data.length; i++) {
           var div = document.createElement("div");
           div.innerHTML =
+            `<div>` +
+            `<form action="/testUpdate" method="post">` +
             "Mezzo: " +
             data[i].mezzo +
             "\nCondizione: " +
@@ -62,7 +77,8 @@
             `<img src="` +
             data[i].foto +
             `">` +
-            `<button type="submit" onclick="test()"">Prenota</button>`;
+            `</form>` +
+            `</div>`;
           mainContainer.appendChild(div);
         }
       }
