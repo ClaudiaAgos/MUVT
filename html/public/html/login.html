@@ -78,6 +78,7 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
   <p>Non sei registrato? fallo qui sotto</p> <br>
   <button onclick="document.getElementById('mod').style.display='block'">Registrati</button>
  <br> <p>sei un amministratore? accedi qui</p>
+</div>
 
   <div class="Accamm">
     <form method="POST" action="/updateCliente">
@@ -91,7 +92,7 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
               required
               autofocus
       /> <br>
-      <label for="ammpwGet" class="visually-hidden">Password:</label>
+      <label for="ammpwGet"  class="visually-hidden">Password:</label>
       <input
               type="text"
               id="ammpwGet"
@@ -100,34 +101,11 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
               placeholder="Password"
               required
 
-      /> <br>
+      />
+    </form>  <br>
   <button onclick="acccli()">Accedi</button>
 
-  <div id="mod" class="modal">
-      <div class="cont">
-        <div id="modcont">
-      <span class="close" onclick="document.getElementById('mod').style.display='none'">&times;</span>
-        <label for="userreg" class="visually-hidden">User name:</label>
-          <input
-              type="text"
-              id="userreg"
-              class="form-control"
-              name="user"
-              placeholder="User name"
-              autofocus
-          /> <br>
-        <label for="passwordreg" class="visually-hidden">Password:</label>
-          <input
-              type="text"
-              id="passwordreg"
-              class="form-control"
-              name="pwd"
-              placeholder="Password"
 
-          />
-        </div>
-      </div>
-    </div>
 </div>
 
 

@@ -57,9 +57,31 @@
 
   <body>
     <div id="myCli"></div>
-    <button type="submit" onclick="add()">Aggiungi</button>
+
+    <button onclick="document.getElementById('mod').style.display='block'">Aggiungi</button>
 
     <br />
+    <div id="mod" class="modfor">
+      <span class="closee" onclick="document.getElementById('mod').style.display='none'">&times;</span>
+      <label for="userreg" class="visually-hidden">User name:</label>
+      <input
+              type="text"
+              id="userreg"
+              class="form-control"
+              name="user"
+              placeholder="User name"
+              autofocus
+      /> <br>
+      <label for="passwordreg" type="password" class="visually-hidden">Password:</label>
+      <input
+              type="text"
+              id="passwordreg"
+              class="form-control"
+              name="pwd"
+              placeholder="Password"
+
+      />
+    </div>
 
     <div id="formdiv">
       <form id="myform" class="modal" method="post">
