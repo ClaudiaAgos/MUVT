@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nolo Nolo</title>
+</head>
+<body>
+
+<h1> Nolo Nolo </h1>
+<p>"Nolo Nolo" è un sito web che ti permette di prenotare comodamene da casa i tuoi mezzi ecologici preferiti. <br>
+Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleggiare bici, pattini, roller e tanto altro comodamente da casa tua <br> <br>
+  Accedi o Registrati per poter accedere al catalogo e vede tutti i mezzi messi a disposizione dal servizio.</p>
+
+<div class="Acc">
+  <form method="GET" action="">
+    <label for="userGet" class="visually-hidden">User name:</label>
+    <input
+            type="text"
+            id="userGet"
+            class="form-control"
+            name="user"
+            placeholder="User name"
+            required
+            autofocus
+    /> <br>
+    <label for="passwordGet" class="visually-hidden">Password:</label>
+    <input
+            type="text"
+            id="passwordGet"
+            class="form-control"
+            name="pwd"
+            placeholder="Password"
+            required
+    /> <br>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">
+      Accedi
+    </button>
+ </div>
+<div class="reg">
+  <p>Non sei registrato? fallo qui sotto</p> <br>
+  <button onclick="document.getElementById('mod').style.display='block'">Registrati</button>
+    <div id="mod" class="modal">
+      <span onclick="document.getElementById('mod').style.display='none'"></span>
+      <label for="userreg" class="visually-hidden">User name:</label>
+      <input
+              type="text"
+              id="userreg"
+              class="form-control"
+              name="user"
+              placeholder="User name"
+              required
+              autofocus
+      /> <br>
+      <label for="passwordreg" class="visually-hidden">Password:</label>
+      <input
+              type="text"
+              id="passwordreg"
+              class="form-control"
+              name="pwd"
+              placeholder="Password"
+              required
+      />
+    </div>
+</div>
+</body>
+</html>
