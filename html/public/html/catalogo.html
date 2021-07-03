@@ -29,7 +29,7 @@
     </style>
   </head>
   <body>
-    <div id="myData"></div>
+    <!--<div id="myData"></div>
 
     <br />
     <h1>Scegli quale oggetto modificare</h1>
@@ -42,6 +42,30 @@
       <br />
       <input type="submit" value="Submit" />
       <button type="reset" id="refresh">Reset</button>
+    </form>-->
+
+    <form method="GET" action="/db/stampa" id="search" class="w-50 mx-auto">
+      <div class="row mb-3">
+        <label for="mezzo" class="col-sm-2 col-form-label">Mezzo:</label>
+        <div class="col-10">
+          <input
+            type="text"
+            id="mezzo"
+            class="form-control"
+            name="mezzo"
+            placeholder="Scegli il mezzo"
+            required
+            autofocus
+          />
+        </div>
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
     </form>
 
     <script>

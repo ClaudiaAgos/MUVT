@@ -30,7 +30,7 @@ let fn = [
 ];
 let dbname = "mydb";
 let collection = ["oggetti", "utenti", "noleggi"];
-let fieldname = "modello";
+let fieldname = "mezzo";
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
@@ -251,4 +251,29 @@ exports.updateCliente = async function (q) {
       console.log("Cliente aggiornato");
       mongo.close();
     });
+};
+
+exports.stampa = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  let result = [];
+  let data = [];
+  let debug = [];
+  let query = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  query[fieldname] = { $regex: q[fieldname], $options: "i" };
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .find(query)
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("catalogo.html", data);
+  return out;
 };

@@ -160,6 +160,10 @@ app.post("/updateCliente", async function (req, res) {
   res.status(204).send(await mymongo.updateCliente(req.body));
 });
 
+app.get("/db/stampa", async function (req, res) {
+  res.send(await mymongo.stampa(req.query, mongoCredentials));
+});
+
 /* ========================== */
 /*                            */
 /*    ACTIVATE NODE SERVER    */

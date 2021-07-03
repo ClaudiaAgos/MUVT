@@ -1,0 +1,38 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="//cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+		<title>Info</title>
+	</head>
+	<body class="p-3">
+		<nav class="navbar navbar-dark bg-dark">
+		  <a class="navbar-brand" href="/">
+			
+			<span class="visually-hidden">Company</a>
+		  </a>
+		</nav>
+		<div class="bg-light p-5 rounded-lg mb-5">
+			<h1 class="display-4 text-center">Catalogo</h1>
+		</div>
+		<table class="table table-striped">
+			{{#each result}} 
+				{{#if @first}}
+					<tr>
+						{{#each this}}<th>{{@key}}</th>{{/each}}
+					</tr> 
+				{{/if}}
+				<tr>
+					{{#each this}}<td>{{this}}</td>{{/each}}
+				</tr> 
+			{{/each}}
+		</table>
+		<ol class="debug">
+			{{#each debug}}<li>{{this}}</li>{{/each}} 
+		</ol>
+		<p><a href="javascript:history.back()">Go back</a></p>
+	<script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+	</body>
+</html>
