@@ -48,22 +48,24 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
 
 <div class="Acc">
   <form method="GET" action="">
-    <label for="userGet" class="visually-hidden">User name:</label>
+    <label for="userGet" name="username" class="visually-hidden">User name:</label>
     <input
             type="text"
             id="userGet"
             class="form-control"
             name="user"
             placeholder="User name"
+            required
             autofocus
     /> <br>
-    <label for="passwordGet" class="visually-hidden">Password:</label>
+    <label for="passwordGet" name="password" class="visually-hidden">Password:</label>
     <input
             type="text"
             id="passwordGet"
             class="form-control"
             name="pwd"
             placeholder="Password"
+            required
 
     /> <br>
     <button class="w-100 btn btn-lg btn-primary" type="submit">
@@ -75,6 +77,31 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
 <div class="reg">
   <p>Non sei registrato? fallo qui sotto</p> <br>
   <button onclick="document.getElementById('mod').style.display='block'">Registrati</button>
+ <br> <p>sei un amministratore? accedi qui</p>
+
+  <div class="Accamm">
+    <form method="POST" action="/updateCliente">
+      <label for="ammGet" class="visually-hidden">User name:</label>
+      <input
+              type="text"
+              id="ammGet"
+              class="form-control"
+              name="user"
+              placeholder="User name"
+              required
+              autofocus
+      /> <br>
+      <label for="ammpwGet" class="visually-hidden">Password:</label>
+      <input
+              type="text"
+              id="ammpwGet"
+              class="form-control"
+              name="pwd"
+              placeholder="Password"
+              required
+
+      /> <br>
+  <button onclick="acccli()">Accedi</button>
 
   <div id="mod" class="modal">
       <div class="cont">
@@ -102,5 +129,11 @@ Il noleggio dei prodotti è gestito dai nostri oparatori che permettono di noleg
       </div>
     </div>
 </div>
+
+
+<script>
+
+</script>
+
 </body>
 </html>
