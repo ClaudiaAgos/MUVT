@@ -29,8 +29,8 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgb(0,0,0);
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
       }
       #myform, .modadd{
         background-color: #fefefe;
@@ -99,8 +99,12 @@
     </div>
 
     <div id="formdiv">
-      <form id="myform" class="modal" method="post">
-        <span onclick="document.getElementById('formdiv').style.display='none'" class="close">&times;</span>
+      <form id="myform" class="modal" method="post" action="/updateCliente">
+        <span
+          onclick="document.getElementById('formdiv').style.display='none'"
+          class="close"
+          >&times;</span
+        >
         <label>Username:<input type="text" name="username" required /></label>
         <br />
         <label>Ruolo:<input type="text" name="ruolo" required /></label>
@@ -111,6 +115,22 @@
         /></label>
         <br />
         <label>Ruolo:<input type="text" name="ruoloNew" required /></label>
+        <br />
+
+        <input type="submit" value="Modifica" />
+      </form>
+    </div>
+
+    <div id="formdivD">
+      <form id="myform" class="modal" method="post" action="/deleteCliente">
+        <span
+          onclick="document.getElementById('formdiv').style.display='none'"
+          class="close"
+          >&times;</span
+        >
+        <label>Username:<input type="text" name="username" required /></label>
+        <br />
+        <label>Ruolo:<input type="text" name="ruolo" required /></label>
         <br />
 
         <input type="submit" value="Modifica" />
@@ -142,26 +162,22 @@
             utenti[i].ruolo +
             "\n" +
             `<button onclick='document.getElementById("formdiv").style.display="block"' id="modify">modifica</button>` +
-            `<button type="submit" onclick="elimina()">delete</button>`;
+            `<button onclick='document.getElementById("formdivD").style.display="block"' id="modify">delete</button>`;
           mainContainer.appendChild(div);
         }
       }
-//form di modifica funzione apri
-//      var form = document.getElementById("myform"); /*prende il form*/
-//    var btn = document.getElementById("modify");
-//    var clos = document.getElementsByClassName("close")[0];
+      //form di modifica funzione apri
+      //      var form = document.getElementById("myform"); /*prende il form*/
+      //    var btn = document.getElementById("modify");
+      //    var clos = document.getElementsByClassName("close")[0];
 
-  /*    btn.onclick = function() {
+      /*    btn.onclick = function() {
         form.style.display = "block";
       }*/
-  /*    clos.onclick = function() {
+      /*    clos.onclick = function() {
         form.style.display = "none";
       }
   */
-      function elimina() {
-        window.alert("are you sure you want to delete it?");
-      }
-
     </script>
   </body>
 </html>
