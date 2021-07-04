@@ -149,6 +149,10 @@ app.post("/testUpdate", async function (req, res) {
   res.status(204).send(await mymongo.updateElement(req.body));
 });
 
+app.post("/testAvailable", async function (req, res) {
+  res.status(204).send(await mymongo.updateDisp(req.body));
+});
+
 app.post("/insertCliente", async function (req, res) {
   res.status(204).send(await mymongo.insertCliente(req.body));
 });
@@ -162,6 +166,10 @@ app.post("/updateCliente", async function (req, res) {
 
 app.get("/db/stampa", async function (req, res) {
   res.send(await mymongo.stampaOggetti(req.query, mongoCredentials));
+});
+
+app.get("/db/disponibili", async function (req, res) {
+  res.send(await mymongo.stampaDisponibili(req.query, mongoCredentials));
 });
 
 app.get("/db/stampaClienti", async function (req, res) {

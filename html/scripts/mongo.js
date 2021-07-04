@@ -33,24 +33,25 @@ let collection = ["oggetti", "utenti", "noleggi"];
 let fieldname = "modello";
 let fieldmezzo = "mezzo";
 let fielduser = "ruolo";
+let available = "available";
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
 const template = require(global.rootDir + "/scripts/tpl.js");
 
 // Carica dati esistenti
+const mongouri =
+  "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 exports.create = async function (credentials) {
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
   let debug = [];
   try {
     debug.push(
       `Trying to connect to MongoDB with user: '${credentials.user}' and site: '${credentials.site}' and a ${credentials.pwd.length}-character long password...`
     );
-    const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
     await mongo.connect();
     debug.push("... managed to connect to MongoDB.");
 
@@ -111,8 +112,6 @@ exports.create = async function (credentials) {
 
 exports.search = async function (q, credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
   let query = {};
   let debug = [];
@@ -168,8 +167,7 @@ exports.isConnected = async function () {
 
 exports.addElement = async function (q) {
   //console.log(q);
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
@@ -178,15 +176,12 @@ exports.addElement = async function (q) {
   await mongo
     .db(dbname)
     .collection(collection[0])
-    .insertOne(myObj, { $set: { available: q.disponibilità } });
+    .insertOne(myObj, { $set: { available: "off" } });
   console.log("Inserito");
   await mongo.close();
 };
 
 exports.deleteElement = async function (q) {
-  console.log(q);
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
@@ -197,10 +192,9 @@ exports.deleteElement = async function (q) {
 };
 
 exports.updateElement = async function (q) {
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
+
   var myquery = {
     mezzo: q.mezzo,
     condizione: q.condizione,
@@ -229,9 +223,6 @@ exports.updateElement = async function (q) {
 };
 
 exports.insertCliente = async function (q) {
-  console.log(q);
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
@@ -244,8 +235,6 @@ exports.insertCliente = async function (q) {
 
 exports.deleteCliente = async function (q) {
   console.log(q);
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
@@ -255,8 +244,6 @@ exports.deleteCliente = async function (q) {
 };
 
 exports.updateCliente = async function (q) {
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
@@ -276,8 +263,7 @@ exports.updateCliente = async function (q) {
 
 exports.stampaOggetti = async function (q, credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
   let result = [];
   let data = [];
   let debug = [];
@@ -301,8 +287,7 @@ exports.stampaOggetti = async function (q, credentials) {
 
 exports.stampaClienti = async function (q, credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
-  const mongouri =
-    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
   let result = [];
   let data = [];
   let debug = [];
@@ -322,4 +307,56 @@ exports.stampaClienti = async function (q, credentials) {
   data.result = result;
   var out = await template.generate("listaclienti.html", data);
   return out;
+};
+
+exports.stampaDisponibili = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  let query = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  query[available] = { $regex: "on", $options: "i" };
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .find(query)
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("catalogo.html", data);
+  return out;
+};
+
+exports.updateDisp = async function (q) {
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myquery = {
+    mezzo: q.mezzo,
+    condizione: q.condizione,
+    modello: q.modello,
+    tipo: q.tipo,
+    prezzo: q.prezzo,
+    available: q.available,
+  };
+
+  var newvalues = {
+    $set: {
+      available: "off",
+    },
+  };
+
+  mongo
+    .db(dbname)
+    .collection(collection[0])
+    .findOneAndUpdate(myquery, newvalues, function (err) {
+      if (err) throw err;
+      console.log("Oggetto aggiornato");
+      mongo.close();
+    });
 };
