@@ -30,7 +30,9 @@ let fn = [
 ];
 let dbname = "mydb";
 let collection = ["oggetti", "utenti", "noleggi"];
-let fieldname = "mezzo";
+let fieldname = "modello";
+let fieldmezzo = "mezzo";
+let fielduser = "ruolo";
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
@@ -173,7 +175,10 @@ exports.addElement = async function (q) {
 
   var myObj = q;
 
-  await mongo.db(dbname).collection(collection[0]).insertOne(myObj);
+  await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .insertOne(myObj, { $set: { available: q.disponibilità } });
   console.log("Inserito");
   await mongo.close();
 };
@@ -196,7 +201,23 @@ exports.updateElement = async function (q) {
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
+  var myquery = {
+    mezzo: q.mezzo,
+    condizione: q.condizione,
+    modello: q.modello,
+    prezzo: q.prezzo,
+    tipo: q.tipo,
+  };
 
+  var newvalues = {
+    $set: {
+      mezzo: q.mezzoN,
+      condizione: q.condizioneN,
+      modello: q.modelloN,
+      prezzo: q.prezzoN,
+      tipo: q.tipoN,
+    },
+  };
   mongo
     .db(dbname)
     .collection(collection[0])
@@ -253,7 +274,7 @@ exports.updateCliente = async function (q) {
     });
 };
 
-exports.stampa = async function (q, credentials) {
+exports.stampaOggetti = async function (q, credentials) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
   const mongouri =
     "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -262,7 +283,7 @@ exports.stampa = async function (q, credentials) {
   let debug = [];
   let query = {};
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
-  query[fieldname] = { $regex: q[fieldname], $options: "i" };
+  query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
   await mongo.connect();
 
   await mongo
@@ -275,5 +296,30 @@ exports.stampa = async function (q, credentials) {
 
   data.result = result;
   var out = await template.generate("catalogo.html", data);
+  return out;
+};
+
+exports.stampaClienti = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+  const mongouri =
+    "mongodb+srv://max:Test1@cluster0.91v2a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  let result = [];
+  let data = [];
+  let debug = [];
+  let query = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  query[fielduser] = { $regex: q[fielduser], $options: "i" };
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .find(query)
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("listaclienti.html", data);
   return out;
 };

@@ -19,7 +19,8 @@
         text-align: left;
         padding: 10px;
       }
-      #formdiv, .modfor{
+      #formdiv,
+      .modfor {
         display: none;
         position: fixed;
         z-index: 1;
@@ -32,18 +33,19 @@
         background-color: rgb(0, 0, 0);
         background-color: rgba(0, 0, 0, 0.4);
       }
-      #myform, .modadd{
+      #myform,
+      .modadd {
         background-color: #fefefe;
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
       }
-     .close{
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
+      .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
       }
 
       .close:hover,
@@ -52,24 +54,24 @@
         text-decoration: none;
         cursor: pointer;
       }
-  .modfor{
-      display: none;
-      position: fixed;
-      z-index: 1;
-      padding-top: 100px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.4);
+      .modfor {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
       }
     </style>
   </head>
 
   <body>
-    <div id="myCli"></div>
+    <!--<div id="myCli"></div>
 
     <button onclick="document.getElementById('mod').style.display='block'">Aggiungi</button>
 
@@ -135,10 +137,39 @@
 
         <input type="submit" value="Modifica" />
       </form>
-    </div>
+    </div>-->
 
+    <form
+      method="GET"
+      action="/db/stampaClienti"
+      id="search"
+      class="w-50 mx-auto"
+    >
+      <div class="row mb-3">
+        <label for="ruolo" class="col-sm-2 col-form-label">Cliente:</label>
+        <div class="col-10">
+          <input
+            type="text"
+            id="ruolo"
+            class="form-control"
+            name="ruolo"
+            placeholder="ruolo cliente"
+            required
+            autofocus
+          />
+        </div>
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
+    </form>
+    <p><a href="javascript:history.back()">Go back</a></p>
     <script>
-      fetch("/data/utenti.json")
+      /* fetch("/data/utenti.json")
         .then(function (response) {
           return response.json();
         })
@@ -165,7 +196,7 @@
             `<button onclick='document.getElementById("formdivD").style.display="block"' id="modify">delete</button>`;
           mainContainer.appendChild(div);
         }
-      }
+      }*/
       //form di modifica funzione apri
       //      var form = document.getElementById("myform"); /*prende il form*/
       //    var btn = document.getElementById("modify");

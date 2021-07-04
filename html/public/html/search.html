@@ -41,7 +41,7 @@ Copyright (c) 2021 by Fabio Vitali
 		<div class="bg-light p-5 rounded-lg mb-5">
 			<h1 class="display-4 text-center">Mongo search<span id="query"></span></h1>
 		</div>
-		<form method='GET' action="/db/stampa" id="search" class="w-50 mx-auto">
+		<form method='GET' action="/db/search" id="search" class="w-50 mx-auto">
 			<div class="row mb-3">
 				<label for="modello" class="col-sm-2 col-form-label">Modello:</label>
 				<div class="col-10">
@@ -86,7 +86,7 @@ Copyright (c) 2021 by Fabio Vitali
 		<script>
 			function ajaxSearch() {
 				$.ajax({
-					url: '/db/stampa',
+					url: '/db/search',
 					data: {modello: $('#modello').val(), ajax:true},
 					success: function (d) {
 						$('#query').html(": "+d.query)

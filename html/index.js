@@ -161,7 +161,11 @@ app.post("/updateCliente", async function (req, res) {
 });
 
 app.get("/db/stampa", async function (req, res) {
-  res.send(await mymongo.stampa(req.query, mongoCredentials));
+  res.send(await mymongo.stampaOggetti(req.query, mongoCredentials));
+});
+
+app.get("/db/stampaClienti", async function (req, res) {
+  res.send(await mymongo.stampaClienti(req.query, mongoCredentials));
 });
 
 /* ========================== */
