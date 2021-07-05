@@ -345,6 +345,7 @@ exports.updateDisp = async function (q) {
     available: q.available,
   };
 
+  //ciao
   var newvalues = {
     $set: {
       available: "off",
