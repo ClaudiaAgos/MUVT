@@ -69,9 +69,54 @@
       </div>
     </form>
 
-    
+    <h1>Oggetti disponibili</h1>
+    <form
+      method="GET"
+      action="/db/disponibili"
+      id="search"
+      class="w-50 mx-auto"
+    >
+      <div class="row mb-3">
+        <label for="available" class="col-sm-2 col-form-label"
+          >Disponibili:</label
+        >
 
-  
+        <div class="col-10">
+          <button
+            type="text"
+            id="available"
+            class="form-control"
+            name="available"
+            placeholder="Inserisci on"
+            required
+            autofocus
+          />Cerca
+        </div>
+      </div>
+    </form>
+
+    <h1>Togli disponibilità</h1>
+    <br />
+    <form method="post" action="/testAvailable">
+      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <br />
+      <label>Condizione:<input type="text" name="condizione" required /></label
+      ><br />
+      <label>Modello:<input type="text" name="modello" required /></label><br />
+      <label>Prezzo:<input type="text" name="prezzo" required /></label><br />
+      <label>Tipo:<input type="text" name="tipo" required /></label><br />
+
+      <br />
+
+      <br />
+      <br />
+      <h3>NUOVI DATI</h3>
+      <label
+        >Aggiungi disponibilità:<input type="checkbox" name="available"
+      /></label>
+      <br />
+
+      <input type="submit" value="Modifica" />
     </form>
 
     <p><a href="javascript:history.back()">Go back</a></p>

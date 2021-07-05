@@ -1,135 +1,139 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    body{
-      font-family: sans-serif;
-    }
-    .container{
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .container {
         position: absolute;
         width: 100%;
         height: 100%;
-    }
-    .colonne{
+      }
+      .colonne {
         float: left;
         width: 100%;
-    }
-    .leftcol{
+      }
+      .leftcol {
         position: absolute;
         height: 100%;
         width: 15%;
         background-color: lightblue;
-        padding-top:5px ;
-    }
-    .tab{
+        padding-top: 5px;
+      }
+      .tab {
         position: absolute;
         border: solid black;
         left: 15%;
         width: 85%;
         height: 100%;
-        padding-left:5px;
-    }
-    table{
-
-    }
-    td,tr{
+        padding-left: 5px;
+      }
+      table {
+      }
+      td,
+      tr {
         border: 1px solid;
-    }
-    .menu{
+      }
+      .menu {
         width: 80px;
         color: black;
-    }
-    .esci{
+      }
+      .esci {
         position: absolute;
         bottom: 0;
         height: 50px;
         padding-left: 15px;
-    }
-    .sidenav{
-      height: 100%;
-      width: 0;
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 60px;
-      display: compact;
-      justify-content: start;
-      align-items: flex-start;
-    }
-    .sidenav a{
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 25px;
-      color: #818181;
-      display: block;
-      transition: 0.3s;
-    }
-    .sidenav a:hover{
-      color: white;
-    }
-    .sidenav .closebtn {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
+      }
+      .sidenav {
+        height: 100%;
+        width: 0;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        display: compact;
+        justify-content: start;
+        align-items: flex-start;
+      }
+      .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+      }
+      .sidenav a:hover {
+        color: white;
+      }
+      .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
 
-    @media screen and (max-height: 450px) {
-      .sidenav {padding-top: 15px;}
-      .sidenav a {font-size: 18px;}
-    }
-
-</style>
-  <title>Home Page</title>
-</head>
-<body>
-<div class="container">
-<div class="colonne">
-<div class="leftcol">
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="profilooperat.html">Profilo personale</a>
-    <a href="listaclienti.html">Lista Clienti</a>
-    <a href="#">Lista Fatture</a>
-    <a href="catalogo.html">Catalogo</a>
-
-</div>
-   <span class="menu" style="font-size: 30px; cursor: pointer" onclick="openNav()">&#9776; Menu</span>
-   <a href="form.html" class="esci"  style="left: 0" >Logout</a>
-</div>
-</div>
-<div class="colonne">
-    <div class="tab">
-    <p>tabella riepilogo</p>
-    <table>
-        <tr></tr>
-        <tr></tr>
-    </table>
+      @media screen and (max-height: 450px) {
+        .sidenav {
+          padding-top: 15px;
+        }
+        .sidenav a {
+          font-size: 18px;
+        }
+      }
+    </style>
+    <title>Home Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="colonne">
+        <div class="leftcol">
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+              >&times;</a
+            >
+            <a href="profilooperat.html">Profilo personale</a>
+            <a href="listaclienti.html">Lista Clienti</a>
+            <a href="#">Lista Fatture</a>
+            <a href="catalogoAmministratore.html">Catalogo</a>
+          </div>
+          <span
+            class="menu"
+            style="font-size: 30px; cursor: pointer"
+            onclick="openNav()"
+            >&#9776; Menu</span
+          >
+          <a href="form.html" class="esci" style="left: 0">Logout</a>
+        </div>
+      </div>
+      <div class="colonne">
+        <div class="tab">
+          <p>tabella riepilogo</p>
+          <table>
+            <tr></tr>
+            <tr></tr>
+          </table>
+        </div>
+      </div>
     </div>
-</div>
-</div>
 
-
-
-<!-- Optional JavaScript; choose one of the two! -->
-<script>
-  function openNav(){
-    document.getElementById("mySidenav").style.width = "250px";
-  }
-  function closeNav(){
-    document.getElementById("mySidenav").style.width = "0";
-  }
-
-</script>
-
-
-</body>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
+  </body>
 </html>
