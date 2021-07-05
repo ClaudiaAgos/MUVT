@@ -129,47 +129,6 @@
           $("#myCheck").prop("checked", false);
         });
       });
-
-      fetch("/data/oggetti.json")
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          appendData(data);
-        })
-        .catch(function (err) {
-          console.log("error: " + err);
-        });
-
-      function appendData(data) {
-        var mainContainer = document.getElementById("myData");
-        for (var i = 0; i < data.length; i++) {
-          var div = document.createElement("div");
-          div.innerHTML =
-            `<div>` +
-            `<form action="/testUpdate" method="post">` +
-            "Mezzo: " +
-            data[i].mezzo +
-            "\nCondizione: " +
-            data[i].condizione +
-            "\nModello: " +
-            data[i].modello +
-            "\nPrezzo: " +
-            data[i].prezzo +
-            "\nTipo: " +
-            data[i].tipo +
-            "\n" +
-            `<img src="` +
-            data[i].foto +
-            `">` +
-            `</form>` +
-            `</div>`;
-          mainContainer.appendChild(div);
-        }
-      }
-      function test() {
-        window.alert("Prenotato");
-      }
     </script>
   </body>
 </html>

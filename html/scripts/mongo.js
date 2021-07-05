@@ -229,6 +229,7 @@ exports.insertCliente = async function (q) {
   var myObj = q;
 
   await mongo.db(dbname).collection(collection[1]).insertOne(myObj);
+  console.log("Cliente aggiunto");
 
   await mongo.close();
 };
