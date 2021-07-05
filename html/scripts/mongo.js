@@ -30,7 +30,10 @@ let fn = [
 ];
 let dbname = "mydb";
 let collection = ["oggetti", "utenti", "noleggi"];
-let fieldname = "modello";
+let fieldmodello = "modello";
+let fieldcondition = "condizione";
+let fieldtipo = "tipo";
+let fieldprezzo = "prezzo";
 let fieldmezzo = "mezzo";
 let fielduser = "ruolo";
 let available = "available";
@@ -115,7 +118,7 @@ exports.search = async function (q, credentials) {
 
   let query = {};
   let debug = [];
-  let data = { query: q[fieldname], result: null };
+  let data = { query: q[fieldmodello], result: null };
 
   try {
     debug.push(
@@ -125,9 +128,9 @@ exports.search = async function (q, credentials) {
     await mongo.connect();
     debug.push("... managed to connect to MongoDB.");
 
-    debug.push(`Trying to query MongoDB with query '${q[fieldname]}'... `);
+    debug.push(`Trying to query MongoDB with query '${q[fieldmodello]}'... `);
     let result = [];
-    query[fieldname] = { $regex: q[fieldname], $options: "i" };
+    query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
     await mongo
       .db(dbname)
       .collection(collection[0])
@@ -337,16 +340,23 @@ exports.updateDisp = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myquery = {
+  var query = {};
+
+  /*var myquery = {
     mezzo: q.mezzo,
     condizione: q.condizione,
     modello: q.modello,
     tipo: q.tipo,
     prezzo: q.prezzo,
     available: q.available,
-  };
+  };*/
 
-  //ciao
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+  query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
+  query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
+  query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
+  //query[fieldprezzo] = { $regex: q[fieldprezzo], $options: "i" };
+
   var newvalues = {
     $set: {
       available: "off",
@@ -356,7 +366,7 @@ exports.updateDisp = async function (q) {
   mongo
     .db(dbname)
     .collection(collection[0])
-    .findOneAndUpdate(myquery, newvalues, function (err) {
+    .findOneAndUpdate(query, newvalues, function (err) {
       if (err) throw err;
       console.log("Oggetto aggiornato");
       mongo.close();
