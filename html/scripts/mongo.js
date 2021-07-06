@@ -38,6 +38,7 @@ let fieldmezzo = "mezzo";
 let fielduser = "ruolo";
 let available = "available";
 let noleggiato = "noleggiato";
+let birthday = "birthday"; // il primo valore è quello che verrà inserito nel db, il secondo è quello del form
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
@@ -65,8 +66,10 @@ exports.create = async function (credentials) {
 
     let doc = await fs.readFile(rootDir + fn[0], "utf8");
     let doc1 = await fs.readFile(rootDir + fn[1], "utf-8");
+    let doc2 = await fs.readFile(rootDir + fn[2], "utf-8");
     let data = JSON.parse(doc);
     let data1 = JSON.parse(doc1);
+    let data2 = JSON.parse(doc2);
 
     debug.push(`... read ${data.length} records successfully. `);
 
@@ -76,9 +79,14 @@ exports.create = async function (credentials) {
       .db(dbname)
       .collection(collection[1])
       .deleteMany();
+    let cleared2 = await mongo
+      .db(dbname)
+      .collection(collection[2])
+      .deleteMany();
 
     debug.push(`... ${cleared?.result?.n || 0} records deleted.`);
     debug.push(`... ${cleared1?.result?.n || 0} records deleted.`);
+    debug.push(`... ${cleared2?.result?.n || 0} records deleted.`);
 
     debug.push(
       `Trying to add ${data.length} new records to ${collection[0]} collection... `
@@ -94,8 +102,14 @@ exports.create = async function (credentials) {
       .collection(collection[1])
       .insertMany(data1);
 
+    let added2 = await mongo
+      .db(dbname)
+      .collection(collection[2])
+      .insertMany(data2);
+
     debug.push(`... ${added?.result?.n || 0} records added.`);
     debug.push(`... ${added1?.result?.n || 0} records added.`);
+    debug.push(`... ${added2?.result?.n || 0} records added.`);
 
     await mongo.close();
     debug.push("Managed to close connection to MongoDB.");
@@ -175,12 +189,18 @@ exports.addElement = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myObj = q;
+  var myObj = {
+    mezzo: q.mezzo,
+    condizione: q.condizione,
+    tipo: q.tipo,
+    modello: q.modello,
+    prezzo: q.prezzo,
+    available: "on",
+    noleggiato: "off",
+  };
 
-  await mongo
-    .db(dbname)
-    .collection(collection[0])
-    .insertOne(myObj, { $set: { available: "on" } });
+  console.log(myObj);
+  await mongo.db(dbname).collection(collection[0]).insertOne(myObj);
   console.log("Inserito");
   await mongo.close();
 };
@@ -195,7 +215,7 @@ exports.deleteElement = async function (q) {
   query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
   query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
   query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
-  query[noleggiato] = { $regex: "off", $options: "i" };
+  noleggiato = { $regex: "off", $options: "i" };
 
   await mongo.db(dbname).collection(collection[0]).findOneAndDelete(query);
 
@@ -213,6 +233,7 @@ exports.updateElement = async function (q) {
   query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
   query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
   query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
+  query[fieldprezzo] = { $regex: q[fieldprezzo.toString()] };
 
   var newvalues = {
     $set: {
@@ -437,4 +458,20 @@ exports.fatture = async function (credentials) {
   data.result = result;
   var out = await template.generate("fatture.html", data);
   return out;
+};
+
+exports.dateNoleggio = async function (q) {
+  //console.log(q);
+
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  console.log(q);
+
+  var myObj = { birthday: q };
+
+  console.log(myObj);
+  await mongo.db(dbname).collection(collection[2]).insertOne(myObj);
+  console.log("Inserito");
+  await mongo.close();
 };
