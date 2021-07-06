@@ -29,7 +29,7 @@ let fn = [
   "/public/data/noleggi.json",
 ];
 let dbname = "mydb";
-let collection = ["oggetti", "utenti", "noleggi"];
+let collection = ["oggetti", "utenti", "noleggi", "prenotazioni", "fatture"];
 let fieldmodello = "modello";
 let fieldcondition = "condizione";
 let fieldtipo = "tipo";
@@ -198,13 +198,12 @@ exports.updateElement = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myquery = {
-    mezzo: q.mezzo,
-    condizione: q.condizione,
-    modello: q.modello,
-    prezzo: q.prezzo,
-    tipo: q.tipo,
-  };
+  var query = {};
+
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+  query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
+  query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
+  query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
 
   var newvalues = {
     $set: {
@@ -213,12 +212,13 @@ exports.updateElement = async function (q) {
       modello: q.modelloN,
       prezzo: q.prezzoN,
       tipo: q.tipoN,
+      available: "on",
     },
   };
   mongo
     .db(dbname)
     .collection(collection[0])
-    .findOneAndUpdate(myquery, newvalues, function (err) {
+    .findOneAndUpdate(query, newvalues, function (err) {
       if (err) throw err;
       console.log("Oggetto aggiornato");
       mongo.close();
@@ -342,15 +342,6 @@ exports.updateDisp = async function (q) {
 
   var query = {};
 
-  /*var myquery = {
-    mezzo: q.mezzo,
-    condizione: q.condizione,
-    modello: q.modello,
-    tipo: q.tipo,
-    prezzo: q.prezzo,
-    available: q.available,
-  };*/
-
   query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
   query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
   query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
@@ -371,4 +362,70 @@ exports.updateDisp = async function (q) {
       console.log("Oggetto aggiornato");
       mongo.close();
     });
+};
+
+exports.noleggiDisponibili = async function (credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[2])
+    .find()
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("noleggi.html", data);
+  return out;
+};
+
+exports.prenotazioni = async function (credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[3])
+    .find()
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("prenotazioni.html", data);
+  return out;
+};
+
+exports.fatture = async function (credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[4])
+    .find()
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("fatture.html", data);
+  return out;
 };

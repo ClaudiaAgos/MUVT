@@ -172,6 +172,18 @@ app.get("/db/disponibili", async function (req, res) {
   res.send(await mymongo.stampaDisponibili(req.query, mongoCredentials));
 });
 
+app.get("/db/stampaNoleggi", async function (req, res) {
+  res.send(await mymongo.noleggiDisponibili(mongoCredentials));
+});
+
+app.get("/db/stampaPrenotazioni", async function (req, res) {
+  res.send(await mymongo.prenotazioni(mongoCredentials));
+});
+
+app.get("/db/fatture", async function (req, res) {
+  res.send(await mymongo.fatture(mongoCredentials));
+});
+
 app.get("/db/stampaClienti", async function (req, res) {
   res.send(await mymongo.stampaClienti(req.query, mongoCredentials));
 });

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NOLEGGI ATTIVI</title>
+  </head>
+  <body>
+    <h1>Noleggi attivi</h1>
+    <form
+      method="GET"
+      action="/db/stampaNoleggi"
+      id="search"
+      class="w-50 mx-auto"
+    >
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <h1>Prenotazioni attive</h1>
+    <form
+      method="GET"
+      action="/db/stampaPrenotazioni"
+      id="search"
+      class="w-50 mx-auto"
+    >
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <h1>Fatture</h1>
+    <form method="GET" action="/db/fatture" id="search" class="w-50 mx-auto">
+      <div class="row g-3 mb-3">
+        <div class="col-6">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
