@@ -37,6 +37,7 @@ let fieldprezzo = "prezzo";
 let fieldmezzo = "mezzo";
 let fielduser = "ruolo";
 let available = "available";
+let noleggiato = "noleggiato";
 
 const { MongoClient, Double } = require("mongodb");
 const fs = require("fs").promises;
@@ -179,7 +180,7 @@ exports.addElement = async function (q) {
   await mongo
     .db(dbname)
     .collection(collection[0])
-    .insertOne(myObj, { $set: { available: "off" } });
+    .insertOne(myObj, { $set: { available: "on" } });
   console.log("Inserito");
   await mongo.close();
 };
@@ -188,7 +189,15 @@ exports.deleteElement = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  await mongo.db(dbname).collection(collection[0]).findOneAndDelete(q);
+  var query = {};
+
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+  query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
+  query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
+  query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
+  query[noleggiato] = { $regex: "off", $options: "i" };
+
+  await mongo.db(dbname).collection(collection[0]).findOneAndDelete(query);
 
   console.log("Rimosso");
   await mongo.close();

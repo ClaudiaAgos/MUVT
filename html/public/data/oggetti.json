@@ -5,7 +5,8 @@
     "modello": "Graziella",
     "prezzo": 5,
     "tipo": "Pedale",
-    "available": "on"
+    "available": "on",
+    "noleggiato": "off"
   },
   {
     "mezzo": "Bicicletta",
@@ -13,7 +14,8 @@
     "modello": "Mountain Bike",
     "prezzo": 15,
     "tipo": "Pedale",
-    "available": "on"
+    "available": "on",
+    "noleggiato": "off"
   },
   {
     "mezzo": "Bicicletta",
@@ -21,7 +23,8 @@
     "modello": "Corsa",
     "prezzo": 5,
     "tipo": "Pedale",
-    "available": "on"
+    "available": "on",
+    "noleggiato": "off"
   },
   {
     "mezzo": "Bicicletta",
@@ -29,6 +32,7 @@
     "modello": "Passeggio",
     "prezzo": 5,
     "tipo": "Elettrica",
-    "available": "on"
+    "available": "on",
+    "noleggiato": "off"
   }
 ]
