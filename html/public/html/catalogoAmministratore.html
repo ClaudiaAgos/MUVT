@@ -2,64 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>JSON Test</title>
     <style>
-      #myData {
-        display: flex;
-        white-space: pre-line;
-        border: 0;
-        text-align: center;
-      }
-
-      div {
-        border: 1px solid black;
+      label {
+        display: inline-block;
+        width: 100px;
         text-align: left;
-        padding: 10px;
-      }
-
-      img {
-        margin-top: 10px;
-        position: relative;
-        width: 200px;
-        height: 150px;
-        text-align: center;
+        margin-bottom: 5px;
       }
     </style>
   </head>
   <body>
-    <!--<div id="myData"></div>
-
-    <br />
-    <h1>Scegli quale oggetto modificare</h1>
-    <form method="POST" action="/testUpdate">
-      <label>Mezzo:<input type="text" name="mezzo" required /></label>
-      <br />
-      <label>Modello:<input type="text" name="modello" required /></label>
-      <br />
-      <label>Tipo:<input type="text" name="tipo" required /></label>
-      <br />
-      <input type="submit" value="Submit" />
-      <button type="reset" id="refresh">Reset</button>
-    </form>-->
-
+    <h1>Cerca mezzo</h1>
     <form method="GET" action="/db/stampa" id="search" class="w-50 mx-auto">
-      <div class="row mb-3">
-        <label for="mezzo" class="col-sm-2 col-form-label">Mezzo:</label>
+      <label for="mezzo" class="col-sm-2 col-form-label">Mezzo</label>
 
-        <div class="col-10">
-          <input
-            type="text"
-            id="mezzo"
-            class="form-control"
-            name="mezzo"
-            placeholder="Scegli il mezzo"
-            required
-            autofocus
-          />
-        </div>
-      </div>
+      <input
+        type="text"
+        id="mezzo"
+        class="form-control"
+        name="mezzo"
+        placeholder="Scegli il mezzo"
+        required
+        autofocus
+      />
+
       <div class="row g-3 mb-3">
         <div class="col-6">
           <button class="w-100 btn btn-lg btn-primary" type="submit">
@@ -68,6 +37,8 @@
         </div>
       </div>
     </form>
+
+    <hr>
 
     <h1>Oggetti disponibili</h1>
     <form
@@ -78,10 +49,9 @@
     >
       <div class="row mb-3">
         <label for="available" class="col-sm-2 col-form-label"
-          >Disponibili:</label
+          >Clicca per visualizzare gli oggetti disponibili</label
         >
 
-        <div class="col-10">
           <button
             type="text"
             id="available"
@@ -90,30 +60,29 @@
             placeholder="Inserisci on"
             required
             autofocus
-          />Cerca
+          />Visualizza
         </div>
       </div>
     </form>
 
+    <hr>
+
     <h1>Togli disponibilità</h1>
     <br />
     <form method="post" action="/testAvailable">
-      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <label>Mezzo:</label><input type="text" name="mezzo" required />
       <br />
-      <label>Condizione:<input type="text" name="condizione" required /></label
-      ><br />
-      <label>Modello:<input type="text" name="modello" required /></label><br />
-      <label>Prezzo:<input type="text" name="prezzo" required /></label><br />
-      <label>Tipo:<input type="text" name="tipo" required /></label><br />
+      <label>Condizione:</label><input type="text" name="condizione" required /><br />
+      <label>Modello:</label><input type="text" name="modello" required /><br />
+      <label>Prezzo:</label><input type="text" name="prezzo" required /><br />
+      <label>Tipo:</label><input type="text" name="tipo" required /><br />
 
+  
       <br />
 
-      <br />
-      <br />
-      <h3>NUOVI DATI</h3>
       <label
-        >Rimuovi disponibilità:<input type="checkbox" name="available"
-      /></label>
+        >Rimuovi disponibilità:</label><input type="checkbox" name="available"
+      />
       <br />
 
       <input type="submit" value="Modifica" />

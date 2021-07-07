@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>JSON Test</title>
     <style>
@@ -26,6 +26,12 @@
         height: 150px;
         text-align: center;
       }
+      label {
+        display: inline-block;
+        width: 100px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
     </style>
   </head>
   <body>
@@ -44,37 +50,23 @@
       <button type="reset" id="refresh">Reset</button>
     </form>-->
 
+    <h1>Cerca il mezzo</h1>
     <form method="GET" action="/db/stampa" id="search" class="w-50 mx-auto">
-      <div class="row mb-3">
-        <label for="mezzo" class="col-sm-2 col-form-label">Mezzo:</label>
+      <label for="mezzo" class="col-sm-2 col-form-label">Mezzo:</label>
 
-        <div class="col-10">
-          <input
-            type="text"
-            id="mezzo"
-            class="form-control"
-            name="mezzo"
-            placeholder="Scegli il mezzo"
-            required
-            autofocus
-          />
-        </div>
-      </div>
-      <div class="row g-3 mb-3">
-        <div class="col-6">
-          <button class="w-100 btn btn-lg btn-primary" type="submit">
-            Cerca
-          </button>
-        </div>
-      </div>
-    </form>
+      <input
+        type="text"
+        id="mezzo"
+        class="form-control"
+        name="mezzo"
+        placeholder="Scegli il mezzo"
+        required
+        autofocus
+      />
 
-    
-
-  
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Cerca</button>
     </form>
 
     <p><a href="javascript:history.back()">Go back</a></p>
-  
   </body>
 </html>

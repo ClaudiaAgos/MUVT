@@ -466,12 +466,7 @@ exports.dateNoleggio = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  console.log(q);
-
-  var myObj = { birthday: q };
-
-  console.log(myObj);
-  await mongo.db(dbname).collection(collection[2]).insertOne(myObj);
+  await mongo.db(dbname).collection(collection[2]).insertOne(q);
   console.log("Inserito");
   await mongo.close();
 };

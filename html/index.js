@@ -189,12 +189,7 @@ app.get("/db/stampaClienti", async function (req, res) {
 });
 
 app.post("/dateNoleggio", async function (req, res) {
-  res.send(
-    await mymongo.dateNoleggio(
-      (req.body.created_at = new Date()),
-      mongoCredentials
-    )
-  );
+  res.send(await mymongo.dateNoleggio(req.body, mongoCredentials));
 });
 
 /* ========================== */

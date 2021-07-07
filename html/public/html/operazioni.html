@@ -1,86 +1,105 @@
 <!DOCTYPE html>
 <html>
-  <head> </head>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <style>
+   
+    label {
+      display: inline-block;
+      width: 140px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+  </style>
   <body>
-    <h1>TEST AGGIUNTA CLIENTE DA AMMINISTRATORE</h1>
-    <form method="POST" action="/insertCliente">
-      <label>Username:<input type="text" name="username" required /></label>
-      <br />
-      <label>Password:<input type="password" name="password" required /></label>
-      <br />
-      <label>Ruolo:<input type="text" name="ruolo" required /></label>
-      <br />
-      <input type="submit" value="Aggiungi" />
-    </form>
+    <div class="container">
+      <h1>AGGIUNGI CLIENTE</h1>
+      <form id="myform" method="POST" action="/insertCliente">
+        <label>Username:</label><input type="text" name="username" required />
+        <br />
+        <label>Password:</label
+        ><input type="password" name="password" required />
+        <br />
+        <label>Ruolo:</label><input type="text" name="ruolo" required />
+        <br />
 
-    <h1>TEST RIMOZIONE CLIENTE DA AMMINISTRATORE</h1>
+        <input type="submit" value="Aggiungi" />
+      </form>
+      <hr />
+      <h1>RIMUOVI CLIENTE</h1>
 
-    <br />
-    <form method="POST" action="/deleteCliente">
-      <label>Username:<input type="text" name="username" required /></label>
       <br />
-      <label>Password:<input type="password" name="password" required /></label>
-      <br />
-      <label>Ruolo:<input type="text" name="ruolo" required /></label>
-      <br />
-      <input type="submit" value="Rimuovi" />
-    </form>
+      <form id="myform" method="POST" action="/deleteCliente">
+        <label>Username:</label><input type="text" name="username" required />
+        <br />
+        <label>Password:</label
+        ><input type="password" name="password" required />
+        <br />
+        <label>Ruolo:</label><input type="text" name="ruolo" required />
+        <br />
+        <input type="submit" value="Rimuovi" />
+      </form>
+      <hr />
 
-    <h1>TEST MODIFICA CLIENTE DA AMMINISTRATORE</h1>
+      <h1>MODIFICA DATI CLIENTE</h1>
 
-    <br />
-    <form method="post" action="/updateCliente">
-      <label>Username:<input type="text" name="username" required /></label>
       <br />
-      <label>Ruolo:<input type="text" name="ruolo" required /></label>
-      <br />
-      <h3>NUOVI DATI</h3>
-      <label>Username:<input type="text" name="usernameNew" required /></label>
-      <br />
-      <label>Ruolo:<input type="text" name="ruoloNew" required /></label>
-      <br />
+      <form id="myform" method="post" action="/updateCliente">
+        <label>Username:</label> <input type="text" name="username" required />
+        <br />
+        <label>Ruolo:</label><input type="text" name="ruolo" required />
+        <br />
+        <h3>NUOVI DATI</h3>
+        <label
+          >Username:</label><input type="text" name="usernameNew" required
+        />
+        <br />
+        <label>Ruolo:</label><input type="text" name="ruoloNew" required />
+        <br />
 
-      <input type="submit" value="Modifica" />
-    </form>
+        <input type="submit" value="Modifica" />
+      </form>
 
-    <br />
-
-    <h1>TEST MODIFICA OGGETTO DA AMMINISTRATORE</h1>
-
-    <br />
-    <form method="post" action="/testUpdate">
-      <label>Mezzo:<input type="text" name="mezzo" required /></label>
       <br />
-      <label>Condizione:<input type="text" name="condizione" required /></label
-      ><br />
-      <label>Modello:<input type="text" name="modello" required /></label><br />
-      <label>Prezzo:<input type="text" name="prezzo" required /></label><br />
-      <label>Tipo:<input type="text" name="tipo" required /></label><br />
-      <br />
-      <h3>NUOVI DATI</h3>
-      <label>Mezzo:<input type="text" name="mezzoN" required /></label>
-      <br />
-      <label>Condizione:<input type="text" name="condizioneN" required /></label
-      ><br />
-      <label>Modello:<input type="text" name="modelloN" required /></label
-      ><br />
-      <label>Prezzo:<input type="text" name="prezzoN" required /></label><br />
-      <label>Tipo:<input type="text" name="tipoN" required /></label><br />
-      <label
-        >Disponibilità:<input type="checkbox" name="available" required
-      /></label>
-      <br />
+      <hr />
 
-      <input type="submit" value="Modifica" />
-    </form>
+      <h1>MODIFICA OGGETO</h1>
 
-    <h1>TEST DATE</h1>
+      <br />
+      <form id="myform" method="post" action="/testUpdate">
+        <label>Mezzo:</label><input type="text" name="mezzo" required />
+        <br />
+        <label
+          >Condizione:</label><input type="text" name="condizione" required />        <br />
+        <label>Modello:</label><input type="text" name="modello" required />        <br />
+        <label>Prezzo:</label><input type="text" name="prezzo" required /><br />
+        <label>Tipo:</label><input type="text" name="tipo" required /><br />
+        <br />
+        <h3>NUOVI DATI</h3>
+        <label>Mezzo:</label><input type="text" name="mezzoN" required />
+        <br />
+        <label
+          >Condizione:</label><input type="text" name="condizioneN" required />        <br />
+        <label>Modello:</label><input type="text" name="modelloN" required />        <br />
+        <label>Prezzo:</label><input type="text" name="prezzoN" required />        <br />
+        <label>Tipo:</label><input type="text" name="tipoN" required /><br />
+        <label
+          >Disponibilità:</label><input type="checkbox" name="available" required
+        /></label>
+        <br />
 
-    <form action="/dateNoleggio" method="POST">
-      <label for="birthday">Birthday:</label>
-      <input type="date" id="birthday" name="birthday" />
-      <input type="submit" />
-    </form>
+        <input type="submit" value="Modifica" />
+      </form>
+      <hr />
+      <h1>TEST DATE</h1>
+
+      <form id="myform" action="/dateNoleggio" method="POST">
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" />
+        <input type="submit" />
+      </form>
+    </div>
 
     <p><a href="javascript:history.back()">Go back</a></p>
   </body>

@@ -2,25 +2,30 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rimuovere elemento</title>
+    <style>
+      label {
+        display: inline-block;
+        width: 140px;
+        text-align: left;
+        margin-bottom: 5px;
+      }
+    </style>
   </head>
   <body>
     <h1>Rimuovi un nuovo elemento del database:</h1>
 
     <form method="POST" action="/deletelement">
-      <label>Mezzo:<input type="text" name="mezzo" required /></label>
+      <label>Mezzo:</label><input type="text" name="mezzo" required />
       <br />
-      <label>Condizione:<input type="text" name="condizione" required /></label>
+      <label>Condizione:</label><input type="text" name="condizione" required />
       <br />
-      <label>Modello:<input type="text" name="modello" required /></label>
+      <label>Modello:</label><input type="text" name="modello" required />
       <br />
-      <label>Prezzo:<input type="text" name="prezzo" required /></label>
+      <label>Prezzo:</label><input type="text" name="prezzo" required />
       <br />
-      <label>Tipo:<input type="text" name="tipo" required /></label>
+      <label>Tipo:</label><input type="text" name="tipo" required />
       <br />
       <input type="submit" value="Submit" />
       <button type="reset" id="refresh">Reset</button>
