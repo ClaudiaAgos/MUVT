@@ -29,7 +29,14 @@ let fn = [
   "/public/data/noleggi.json",
 ];
 let dbname = "mydb";
-let collection = ["oggetti", "utenti", "noleggi", "prenotazioni", "fatture"];
+let collection = [
+  "oggetti",
+  "utenti",
+  "noleggi",
+  "prenotazioni",
+  "fatture",
+  "login",
+];
 let fieldmodello = "modello";
 let fieldcondition = "condizione";
 let fieldtipo = "tipo";
@@ -467,6 +474,19 @@ exports.dateNoleggio = async function (q) {
   await mongo.connect();
 
   await mongo.db(dbname).collection(collection[2]).insertOne(q);
+  console.log("Inserito");
+  await mongo.close();
+};
+
+exports.addClilog = async function (q) {
+  console.log(q);
+
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  var myObj = q;
+
+  await mongo.db(dbname).collection(collection[5]).insertOne(myObj);
   console.log("Inserito");
   await mongo.close();
 };

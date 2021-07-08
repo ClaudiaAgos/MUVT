@@ -192,6 +192,9 @@ app.post("/dateNoleggio", async function (req, res) {
   res.send(await mymongo.dateNoleggio(req.body, mongoCredentials));
 });
 
+app.post("/login", async function (req, res) {
+  res.status(204).send(await mymongo.addClilog(req.body));
+});
 /* ========================== */
 /*                            */
 /*    ACTIVATE NODE SERVER    */
