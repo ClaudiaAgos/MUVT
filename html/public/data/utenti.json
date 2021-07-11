@@ -2,21 +2,33 @@
   {
     "username": "marioRossi",
     "password": "111",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off",
+    "date": [],
+    "bicicletta": []
   },
   {
     "username": "lucaBianchi",
     "password": "222",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off",
+    "date": [],
+    "bicicletta": []
   },
   {
     "username": "marcoLucia",
     "password": "333",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off",
+    "date": [],
+    "bicicletta": []
   },
   {
     "username": "fedeRusso",
     "password": "000",
-    "ruolo": "admin"
+    "ruolo": "admin",
+    "active": "off",
+    "date": [],
+    "bicicletta": []
   }
 ]

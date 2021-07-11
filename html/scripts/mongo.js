@@ -27,6 +27,7 @@ let fn = [
   "/public/data/oggetti.json",
   "/public/data/utenti.json",
   "/public/data/noleggi.json",
+  "/public/data/prenotazioni.json",
 ];
 let dbname = "mydb";
 let collection = [
@@ -45,6 +46,11 @@ let fieldmezzo = "mezzo";
 let fielduser = "ruolo";
 let available = "available";
 let noleggiato = "noleggiato";
+let fieldbici = "bici";
+let user = "username";
+let active = "active";
+let bici = "bici";
+
 let birthday = "birthday"; // il primo valore è quello che verrà inserito nel db, il secondo è quello del form
 
 const { MongoClient, Double } = require("mongodb");
@@ -74,9 +80,12 @@ exports.create = async function (credentials) {
     let doc = await fs.readFile(rootDir + fn[0], "utf8");
     let doc1 = await fs.readFile(rootDir + fn[1], "utf-8");
     let doc2 = await fs.readFile(rootDir + fn[2], "utf-8");
+    let doc3 = await fs.readFile(rootDir + fn[3], "utf-8");
+
     let data = JSON.parse(doc);
     let data1 = JSON.parse(doc1);
     let data2 = JSON.parse(doc2);
+    let data3 = JSON.parse(doc3);
 
     debug.push(`... read ${data.length} records successfully. `);
 
@@ -86,14 +95,21 @@ exports.create = async function (credentials) {
       .db(dbname)
       .collection(collection[1])
       .deleteMany();
-    let cleared2 = await mongo
+
+    /*let cleared2 = await mongo
       .db(dbname)
       .collection(collection[2])
+      .deleteMany();*/
+
+    let cleared3 = await mongo
+      .db(dbname)
+      .collection(collection[3])
       .deleteMany();
 
     debug.push(`... ${cleared?.result?.n || 0} records deleted.`);
     debug.push(`... ${cleared1?.result?.n || 0} records deleted.`);
-    debug.push(`... ${cleared2?.result?.n || 0} records deleted.`);
+    //debug.push(`... ${cleared2?.result?.n || 0} records deleted.`);
+    debug.push(`... ${cleared3?.result?.n || 0} records deleted.`);
 
     debug.push(
       `Trying to add ${data.length} new records to ${collection[0]} collection... `
@@ -113,6 +129,11 @@ exports.create = async function (credentials) {
       .db(dbname)
       .collection(collection[2])
       .insertMany(data2);
+
+    let added3 = await mongo
+      .db(dbname)
+      .collection(collection[3])
+      .insertMany(data3);
 
     debug.push(`... ${added?.result?.n || 0} records added.`);
     debug.push(`... ${added1?.result?.n || 0} records added.`);
@@ -204,6 +225,7 @@ exports.addElement = async function (q) {
     prezzo: q.prezzo,
     available: "on",
     noleggiato: "off",
+    date: 0,
   };
 
   console.log(myObj);
@@ -222,11 +244,9 @@ exports.deleteElement = async function (q) {
   query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
   query[fieldcondition] = { $regex: q[fieldcondition], $options: "i" };
   query[fieldtipo] = { $regex: q[fieldtipo], $options: "i" };
-  noleggiato = { $regex: "off", $options: "i" };
+  query[noleggiato] = { $regex: "off", $options: "i" };
 
   await mongo.db(dbname).collection(collection[0]).findOneAndDelete(query);
-
-  console.log("Rimosso");
   await mongo.close();
 };
 
@@ -423,19 +443,28 @@ exports.noleggiDisponibili = async function (credentials) {
   return out;
 };
 
-exports.prenotazioni = async function (credentials) {
+exports.prenotazioni = async function (q) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
 
   let result = [];
-  let data = [];
+  let data = {};
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
 
   await mongo.connect();
 
+  // cerco il cliente attivo
+  var test1 = await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .find({ active: "on" })
+    .limit(1)
+    .toArray();
+
+  // pusho i documenti della collezione dell'array result
   await mongo
     .db(dbname)
-    .collection(collection[3])
-    .find()
+    .collection(collection[1])
+    .find({ active: "on" })
     .forEach((r) => {
       result.push(r);
     });
@@ -478,15 +507,153 @@ exports.dateNoleggio = async function (q) {
   await mongo.close();
 };
 
-exports.addClilog = async function (q) {
-  console.log(q);
+// verifica se il cliente è presente nel db, se si allora setta il campo active a on
+// questo campo sarà utile per pushare il cliente attivo, la bicicletta e le date in prenotazioni
+exports.cercaCli = async function (q) {
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+  let c = false;
+  let b = false;
 
+  let query = {};
+  query[user] = { $regex: q[user], $options: "i" };
+
+  var newvalues = {
+    $set: {
+      active: "on",
+    },
+  };
+  await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .findOneAndUpdate(query, newvalues);
+  c = await mongo.db(dbname).collection(collection[1]).find(query).toArray();
+
+  if (Array.isArray(c) && c.length) {
+    b = true;
+  } else {
+    b = false;
+  }
+
+  await mongo.close();
+
+  return b;
+};
+
+exports.insertdate = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
 
-  var myObj = q;
+  var pippo = new Date(q.start);
+  var fine = new Date(q.end);
+  var dif = (fine - pippo) / 3600 / 1000;
+  var diff = Math.floor(dif);
 
-  await mongo.db(dbname).collection(collection[5]).insertOne(myObj);
-  console.log("Inserito");
-  await mongo.close();
+  var query = {};
+  let result = [];
+  let data = [];
+  query[fieldmodello] = { $regex: q[bici], $options: "i" };
+
+  // prende la bici in input e le date
+  var newvalues = {
+    $push: {
+      date: q.start,
+      bicicletta: q.bici,
+    },
+  };
+
+  // cerco il cliente attivo e aggiorno i campi bicicletta e date
+  // ottengo il cliente con le relative prenotazioni
+  var test = await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .findOneAndUpdate({ active: "on" }, newvalues);
+
+  console.log(test.value.username);
+
+  // controllo se esiste già un utente con quel nome nella collezione "prenotazioni", se esiste allora aggiorna i valori
+  var test = await mongo
+    .db(dbname)
+    .collection(collection[3])
+    .findOneAndUpdate({ username: test.value.username }, newvalues);
+};
+
+// ricerca le bici disponibili nelle date inserite
+exports.stampadate = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[2])
+    .find({
+      $and: [
+        { Disponibilita: "on" },
+        {
+          $or: [
+            {
+              $and: [
+                { dateinit: { $gt: new Date(q.inizio) } },
+                { dateinit: { $gt: new Date(q.fine) } },
+              ],
+            },
+            {
+              $and: [
+                { datefinish: { $lt: new Date(q.inizio) } },
+                { datefinish: { $lt: new Date(q.fine) } },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  console.log(result);
+  data.result = result;
+  var out = await template.generate("noleggi.html", data);
+  return out;
+};
+
+exports.logout = async function (q) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+  let c = false;
+  let b = false;
+
+  var newvalues = {
+    $set: {
+      active: "off",
+    },
+  };
+  // cerco il cliente attivo e lo setto su off
+
+  c = await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .find({ active: "on" })
+    .toArray();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .findOneAndUpdate({ active: "on" }, newvalues);
+
+  if (Array.isArray(c) && c.length) {
+    b = true;
+  } else {
+    b = false;
+  }
+  mongo.close();
+  return b;
 };

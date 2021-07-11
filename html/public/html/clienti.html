@@ -117,6 +117,7 @@
             <a href="profilooperat.html">Profilo personale</a>
             <a href="#">Lista Ordini</a>
             <a href="catalogo.html">Catalogo</a>
+            <a href="operazioni.html">Operazioni</a>
           </div>
           <span
             class="menu"
@@ -124,7 +125,10 @@
             onclick="openNav()"
             >&#9776; Menu</span
           >
-          <a href="/" class="esci" style="left: 0">Logout</a>
+
+          <form action="/logout" method="POST">
+            <button type="submit">Log Out</button>
+          </form>
         </div>
       </div>
       <div class="colonne">

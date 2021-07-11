@@ -33,6 +33,6 @@
     "prezzo": 5,
     "tipo": "Elettrica",
     "available": "on",
-    "noleggiato": "off"
+    "noleggio": []
   }
 ]

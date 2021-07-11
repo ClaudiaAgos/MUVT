@@ -172,12 +172,16 @@ app.get("/db/disponibili", async function (req, res) {
   res.send(await mymongo.stampaDisponibili(req.query, mongoCredentials));
 });
 
+app.get("/db/stampaDate", async function (req, res) {
+  res.send(await mymongo.stampadate(req.query, mongoCredentials));
+});
+
 app.get("/db/stampaNoleggi", async function (req, res) {
   res.send(await mymongo.noleggiDisponibili(mongoCredentials));
 });
 
-app.get("/db/stampaPrenotazioni", async function (req, res) {
-  res.send(await mymongo.prenotazioni(mongoCredentials));
+app.post("/db/stampaPrenotazioni", async function (req, res) {
+  res.send(await mymongo.prenotazioni(req));
 });
 
 app.get("/db/fatture", async function (req, res) {
@@ -193,7 +197,27 @@ app.post("/dateNoleggio", async function (req, res) {
 });
 
 app.post("/login", async function (req, res) {
-  res.status(204).send(await mymongo.addClilog(req.body));
+  let alert = require("alert");
+
+  if (await mymongo.cercaCli(req.body, mongoCredentials)) {
+    res.redirect("http://localhost:8000/docs/clienti.html");
+  } else {
+    alert("Utente non trovato");
+  }
+});
+
+app.post("/logout", async function (req, res) {
+  if (await mymongo.logout(req.body)) {
+    res.redirect("http://localhost:8000/docs/login1.html");
+  }
+});
+
+app.post("/insertdate", async function (req, res) {
+  res.send(await mymongo.insertdate(req.body));
+});
+
+app.get("/db/stampadate", async function (req, res) {
+  res.send(await mymongo.stampadate(req.query, mongoCredentials));
 });
 /* ========================== */
 /*                            */

@@ -10,7 +10,8 @@
       width: 140px;
       text-align: left;
       margin-bottom: 5px;
-    }
+        }
+    
   </style>
   <body>
     <div class="container">
@@ -92,15 +93,92 @@
         <input type="submit" value="Modifica" />
       </form>
       <hr />
+      
+
       <h1>TEST DATE</h1>
 
-      <form id="myform" action="/dateNoleggio" method="POST">
-        <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday" />
-        <input type="submit" />
-      </form>
-    </div>
+    <form method="POST" action="/insertdate" name="prova">
+
+      <label>Bici:</label><input type="text" name="bici" required />
+      <br>
+      <label for="start">Inizio del noleggio </label>
+      <input type="datetime-local" id="start" name="start">
+      <br />
+      <label for="end">Fine del noleggio </label>
+      <input type="datetime-local" id="end" name="end">
+      <br>
+      <label for="disp"> Disponibiltà </label>
+      <input type="radio" id="disp" name="disp">
+      <br />
+      <input type="button" value="Aggiungi" onclick="valida()"/>
+      
+      
+    </form>
+
+    <form method="POST" action="/db/stampaPrenotazioni">
+    <button type="submit">Conferma</button>
+  </form>
+
+
+    <h1>Prova per la ricerca di un oggetto con il calendario </h1>
+    <form method="GET" action="/db/stampadate" id="search">
+      <div>
+          <label for="inizio">Inizio del noleggio </label>
+          <input type="datetime-local" id="inizio" name="inizio">
+          <br>
+          <label for="end">Fine del noleggio </label>
+          <input type="datetime-local" id="fine" name="fine">
+      </div>
+      <div>
+        <div class="col-6">
+          <button  type="submit">
+            Cerca
+          </button>
+        </div>
+      </div>
+    </form>
 
     <p><a href="javascript:history.back()">Go back</a></p>
+
+    <script type="text/javascript">
+
+
+
+      function valida() {
+        var inizio= document.prova.start.value;
+        var annoinit = document.prova.start.value.substring(0,4);
+        var meseinit = document.prova.start.value.substring(5,7)-1;
+        var giornoinit = document.prova.start.value.substring(8,10);
+        var orainit = document.prova.start.value.substring(11,13);
+        var minutinit = document.prova.start.value.substring(14,16);
+        var fine=document.prova.end.value;
+        var annoend = document.prova.end.value.substring(0,4);
+        var meseend = document.prova.end.value.substring(5,7)-1;
+        var giornoend= document.prova.end.value.substring(8,10);
+        var oraend = document.prova.end.value.substring(11,13);
+        var minutend = document.prova.end.value.substring(14,16);
+        var startdate= new Date(annoinit,meseinit,giornoinit,orainit,minutinit);
+        var enddate = new Date(annoend, meseend, giornoend, oraend, minutend);
+        console.log(startdate);
+        console.log(enddate);
+        var diff =  (enddate - startdate)/3600/1000;
+       //la differenza non si riesce a mettere nel database dato che non fa parte del form
+        console.log(diff);
+
+        if(startdate > enddate){
+
+          alert("La data di inizio noleggio deve essere precedente rispetto alla data di fine noleggio");
+
+          return false;
+
+        }
+         else {
+          console.log("Ciao a tutti amore miei");
+
+          document.prova.submit();
+        }
+      }
+
+    </script>
   </body>
 </html>
