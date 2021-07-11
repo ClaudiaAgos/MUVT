@@ -216,7 +216,8 @@ exports.addElement = async function (q) {
 
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
-
+  var pippo = new Date(q.dataI);
+  var fine = new Date(q.dataF);
   var myObj = {
     mezzo: q.mezzo,
     condizione: q.condizione,
@@ -225,7 +226,16 @@ exports.addElement = async function (q) {
     prezzo: q.prezzo,
     available: "on",
     noleggiato: "off",
-    date: 0,
+    date: [
+      {
+        dateinit: pippo,
+        datefinish: fine,
+      },
+      {
+        dateinit: pippo,
+        datefinish: fine,
+      },
+    ],
   };
 
   console.log(myObj);
@@ -330,16 +340,36 @@ exports.stampaOggetti = async function (q, credentials) {
   let debug = [];
   let query = {};
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
-  query[fieldmezzo] = { $regex: q[fieldmezzo], $options: "i" };
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+
   await mongo.connect();
 
-  await mongo
+  var c = await mongo
     .db(dbname)
     .collection(collection[0])
-    .find(query)
-    .forEach((r) => {
-      result.push(r);
-    });
+    .find({
+      $and: [
+        { available: "on" },
+        { modello: q.modello },
+        {
+          date: {
+            $not: {
+              $elemMatch: {
+                dateinit: {
+                  $lt: new Date(q.dataI),
+                  $lt: new Date(q.dataF),
+                },
+                datefinish: {
+                  $gt: new Date(q.dataI),
+                  $gt: new Date(q.dataF),
+                },
+              },
+            },
+          },
+        },
+      ],
+    })
+    .forEach((r) => result.push(r));
 
   data.result = result;
   var out = await template.generate("catalogo.html", data);
@@ -443,6 +473,7 @@ exports.noleggiDisponibili = async function (credentials) {
   return out;
 };
 
+// prenotazioni personali
 exports.prenotazioni = async function (q) {
   //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
 
@@ -460,11 +491,40 @@ exports.prenotazioni = async function (q) {
     .limit(1)
     .toArray();
 
-  // pusho i documenti della collezione dell'array result
+  try {
+    await mongo.db(dbname).collection(collection[3]).insertMany(test1);
+  } catch (e) {
+    console.log(e);
+  }
+
+  // in questo modo le stampa tutte
   await mongo
     .db(dbname)
-    .collection(collection[1])
+    .collection(collection[3])
     .find({ active: "on" })
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("prenotazioni.html", data);
+  return out;
+};
+
+exports.prenotazioniOperatore = async function (q) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  // ottengo in stampa le prenotazioni dell'utente attivo
+  await mongo
+    .db(dbname)
+    .collection(collection[3])
+    .find()
     .forEach((r) => {
       result.push(r);
     });
@@ -647,6 +707,10 @@ exports.logout = async function (q) {
   await mongo
     .db(dbname)
     .collection(collection[1])
+    .findOneAndUpdate({ active: "on" }, newvalues);
+  await mongo
+    .db(dbname)
+    .collection(collection[3])
     .findOneAndUpdate({ active: "on" }, newvalues);
 
   if (Array.isArray(c) && c.length) {

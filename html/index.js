@@ -184,6 +184,10 @@ app.post("/db/stampaPrenotazioni", async function (req, res) {
   res.send(await mymongo.prenotazioni(req));
 });
 
+app.post("/db/prenotazioniOperatore", async function (req, res) {
+  res.send(await mymongo.prenotazioniOperatore(req));
+});
+
 app.get("/db/fatture", async function (req, res) {
   res.send(await mymongo.fatture(mongoCredentials));
 });

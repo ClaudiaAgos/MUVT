@@ -52,18 +52,24 @@
 
     <h1>Cerca il mezzo</h1>
     <form method="GET" action="/db/stampa" id="search" class="w-50 mx-auto">
-      <label for="mezzo" class="col-sm-2 col-form-label">Mezzo:</label>
+      <label for="modello" class="col-sm-2 col-form-label">Modello:</label>
 
       <input
         type="text"
-        id="mezzo"
+        id="modello"
         class="form-control"
-        name="mezzo"
+        name="modello"
         placeholder="Scegli il mezzo"
         required
         autofocus
       />
-
+      <br />
+      <label for="dataI">Data iniziale:</label
+      ><input type="datetime-local" name="dataI" id="dataI" />
+      <br />
+      <label for="dataI">Data finale:</label
+      ><input type="datetime-local" name="dataF" id="dataF" />
+      <br />
       <button class="w-100 btn btn-lg btn-primary" type="submit">Cerca</button>
     </form>
 
