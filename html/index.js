@@ -165,7 +165,10 @@ app.post("/updateCliente", async function (req, res) {
 });
 
 app.get("/db/stampa", async function (req, res) {
-  res.send(await mymongo.stampaOggetti(req.query, mongoCredentials));
+  res.send(await mymongo.catalogo(req.query, mongoCredentials));
+});
+app.get("/db/stampaTutti", async function (req, res) {
+  res.send(await mymongo.catalogoTutti(req.query, mongoCredentials));
 });
 
 app.get("/db/disponibili", async function (req, res) {
@@ -220,8 +223,12 @@ app.post("/insertdate", async function (req, res) {
   res.send(await mymongo.insertdate(req.body));
 });
 
+app.post("/push", async function (req, res) {
+  res.send(await mymongo.updateOggetto(req.body));
+});
+
 app.get("/db/stampadate", async function (req, res) {
-  res.send(await mymongo.stampadate(req.query, mongoCredentials));
+  res.send(await mymongo.stampadate(res.body));
 });
 /* ========================== */
 /*                            */

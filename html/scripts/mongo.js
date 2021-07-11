@@ -651,10 +651,11 @@ exports.stampadate = async function (q, credentials) {
 
   await mongo
     .db(dbname)
-    .collection(collection[2])
+    .collection(collection[0])
     .find({
       $and: [
-        { Disponibilita: "on" },
+        { available: "on" },
+        { modello: q.modello },
         {
           $or: [
             {
@@ -720,4 +721,56 @@ exports.logout = async function (q) {
   }
   mongo.close();
   return b;
+};
+
+exports.catalogo = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  let query = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[1])
+    .find({ active: "on" })
+    .forEach((r) => result.push(r));
+
+  data.result = result;
+  var out = await template.generate("catalogo.html", data);
+  return out;
+};
+
+exports.catalogoTutti = async function (q, credentials) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = [];
+  let query = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  query[fieldmodello] = { $regex: q[fieldmodello], $options: "i" };
+
+  await mongo.connect();
+
+  await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .find(query)
+    .forEach((r) => result.push(r));
+
+  data.result = result;
+  var out = await template.generate("catalogo.html", data);
+  return out;
+};
+
+exports.updateOggetto = async function (q) {
+  //quando clicco su prenota allora le date vanno pushate nell'oggetto
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+
+  console.log(q);
 };

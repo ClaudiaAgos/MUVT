@@ -22,12 +22,18 @@
 				{{#if @first}}
 					<tr>
 						{{#each this}}<th>{{@key}}</th>{{/each}}
+						<th>Prenota</th>
 					</tr> 
 				{{/if}}
 				<tr>
 					{{#each this}}<td>{{this}}</td>{{/each}}
+					<td>
+				</td>
+						
 				</tr> 
+				
 			{{/each}}
+			
 		</table>
 		<ol class="debug">
 			{{#each debug}}<li>{{this}}</li>{{/each}} 
