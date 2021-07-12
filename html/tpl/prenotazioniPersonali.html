@@ -30,18 +30,24 @@
 				<tr> 
 					<td>{{this.username}}</td>
 					<td>{{this.bicicletta}}</td>
-					<td>{{this.date }}</td>
-
-                
-
+				
+				{{#each date}}
+					{{#each this}}
+					<td>{{this.dateinit}}</td>
+					<td>{{this.datefinish}}</td>
+					{{/each}}
+				{{/each}}
+					
 				
 					<td>
 				</td>
-				
-
-			
-
 			{{/each}}
+
+				
+					
+			
+				
+				
 			
 				
 		</table>

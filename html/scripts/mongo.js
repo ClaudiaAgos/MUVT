@@ -618,7 +618,16 @@ exports.insertdate = async function (q) {
   // prende la bici in input e le date
   var newvalues = {
     $push: {
-      date: q.start,
+      date: [
+        {
+          dateinit: pippo,
+          datefinish: fine,
+        },
+        {
+          dateinit: pippo,
+          datefinish: fine,
+        },
+      ],
       bicicletta: q.bici,
     },
   };
