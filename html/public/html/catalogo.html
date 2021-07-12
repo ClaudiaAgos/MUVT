@@ -70,10 +70,25 @@
       <label for="dataI">Data finale:</label
       ><input type="datetime-local" name="dataF" id="dataF" />
       <br />
-      <button class="w-100 btn btn-lg btn-primary" type="submit">Cerca</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">
+        Cerca disponibili
+      </button>
     </form>
-    
+
     <form action="/push" method="POST">
+      <label>Mezzo:</label><input type="text" name="mezzo" required />
+      <br />
+      <label>Modello:</label><input type="text" name="modello" required />
+      <br />
+      <label>Prezzo:</label><input type="text" name="prezzo" required />
+      <br />
+      <label>Tipo:</label><input type="text" name="tipo" required />
+      <br />
+      <label>Data iniziale:</label
+      ><input type="datetime-local" name="dataI" required />
+      <br />
+      <label>Data finale:</label
+      ><input type="datetime-local" name="dataF" required />
       <button type="button">Prenota</button>
     </form>
 

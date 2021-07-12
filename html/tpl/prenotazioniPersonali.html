@@ -15,26 +15,35 @@
 		  </a>
 		</nav>
 		<div class="bg-light p-5 rounded-lg mb-5">
-			<h1 class="display-4 text-center">Clienti</h1>
+			<h1 class="display-4 text-center">Prenotazioni personali</h1>
 		</div>
 		<table class="table table-striped">
-			<th>Username</th>
-			<th>Password</th>
-			<th>Ruolo</th>
+			<tr>
+				
+				<th>Username</th>
+                <th>Mezzo</th>
+                <th>Date</th>
+
+			</tr> 
 			{{#each result}} 
-			
+				
 				<tr> 
 					<td>{{this.username}}</td>
-					<td>{{this.password}}</td>
-					<td>{{this.ruolo}}</td>
-					
-				 
+					<td>{{this.bicicletta}}</td>
+					<td>{{this.date }}</td>
+
+                
+
+				
 					<td>
 				</td>
 				
 
+			
 
 			{{/each}}
+			
+				
 		</table>
 		<ol class="debug">
 			{{#each debug}}<li>{{this}}</li>{{/each}} 

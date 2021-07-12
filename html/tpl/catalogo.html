@@ -18,22 +18,42 @@
 			<h1 class="display-4 text-center">Catalogo</h1>
 		</div>
 		<table class="table table-striped">
+			<tr>
+				<th>Id</th>
+				<th>Mezzo</th>
+				<th>Condizione</th>
+				<th>Tipo</th>
+				<th>Modello</th>
+				<th>Prezzo</th>
+				<th>Disponibilità</th>
+				<th>Noleggiato</th>
+				<th>Date</th>
+			</tr> 
 			{{#each result}} 
-				{{#if @first}}
-					<tr>
-						{{#each this}}<th>{{@key}}</th>{{/each}}
-						<th>Prenota</th>
-					</tr> 
-				{{/if}}
-				<tr>
-					{{#each this}}<td>{{this}}</td>{{/each}}
+				
+				
+				
+				<tr> 
+					<td>{{this._id}}</td>
+					<td>{{this.mezzo}}</td>
+					<td>{{this.condizione}}</td>
+					<td>{{this.tipo}}</td>
+					<td>{{this.modello}}</td>
+					<td>{{this.prezzo}}</td>
+					<td>{{this.available}}</td>
+					<td>{{this.noleggiato}}</td>
+
+					{{#each date}}
+					<td>{{#each this}}{{this}}{{/each}}</td>
+					{{/each}}
+				 
 					<td>
 				</td>
-						
-				</tr> 
 				
-			{{/each}}
+
 			
+
+			{{/each}}
 		</table>
 		<ol class="debug">
 			{{#each debug}}<li>{{this}}</li>{{/each}} 

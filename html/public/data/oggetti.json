@@ -6,7 +6,8 @@
     "prezzo": 5,
     "tipo": "Pedale",
     "available": "on",
-    "noleggiato": "off"
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
@@ -15,7 +16,8 @@
     "prezzo": 15,
     "tipo": "Pedale",
     "available": "on",
-    "noleggiato": "off"
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
@@ -24,7 +26,8 @@
     "prezzo": 5,
     "tipo": "Pedale",
     "available": "on",
-    "noleggiato": "off"
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
@@ -33,6 +36,7 @@
     "prezzo": 5,
     "tipo": "Elettrica",
     "available": "on",
-    "noleggio": []
+    "noleggiato": "off",
+    "date": []
   }
 ]

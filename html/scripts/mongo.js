@@ -507,7 +507,7 @@ exports.prenotazioni = async function (q) {
     });
 
   data.result = result;
-  var out = await template.generate("prenotazioni.html", data);
+  var out = await template.generate("prenotazioniPersonali.html", data);
   return out;
 };
 
@@ -600,6 +600,7 @@ exports.cercaCli = async function (q) {
   return b;
 };
 
+// mi pusha le date nei clienti
 exports.insertdate = async function (q) {
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
@@ -636,6 +637,19 @@ exports.insertdate = async function (q) {
     .db(dbname)
     .collection(collection[3])
     .findOneAndUpdate({ username: test.value.username }, newvalues);
+
+  // devo pushare le date anche nella bicicleta
+  // cerco la bicicletta nella collezione 0 e la aggiorno
+  var pippo = await mongo
+    .db(dbname)
+    .collection(collection[0])
+    .findOneAndUpdate(query, {
+      $push: {
+        date: {
+          dateinit: new Date(q.start),
+        },
+      },
+    });
 };
 
 // ricerca le bici disponibili nelle date inserite
@@ -771,6 +785,8 @@ exports.updateOggetto = async function (q) {
   //quando clicco su prenota allora le date vanno pushate nell'oggetto
   const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
   await mongo.connect();
+
+  //nel momento in cui inserisco la bicicletta e le date, effettuo una find nella collezione 0 e pusho le date nel campo date
 
   console.log(q);
 };
