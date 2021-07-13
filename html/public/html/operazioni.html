@@ -116,7 +116,10 @@
     </form>
 
     <form method="POST" action="/db/stampaPrenotazioni">
-    <button type="submit">Conferma</button>
+    <button type="submit">Prenota</button>
+  </form>
+  <form method="POST" action="/insertNoleggio">
+    <button type="submit">Noleggia</button>
   </form>
 
 
@@ -136,6 +139,24 @@
           </button>
         </div>
       </div>
+    </form>
+
+    <h1>CHIUDI NOLEGGIO</h1>
+
+    <form method="POST" action="/chiudiNoleggio">
+      <label for="username">Username cliente</label>
+      <input  type="text" id="username" name="username">
+      <br>
+      <label for="mezzo">Mezzo </label>
+      <input  type="text" id="mezzo" name="mezzo">
+      <br>
+      <label for="inizio">Inizio del noleggio </label>
+      <input type="datetime-local" id="inizio" name="inizio">
+      <br>
+      <label for="fine">Fine del noleggio </label>
+      <input type="datetime-local" id="fine" name="fine">
+      <br>
+      <button type="submit">Termina</button>
     </form>
 
     <p><a href="javascript:history.back()">Go back</a></p>

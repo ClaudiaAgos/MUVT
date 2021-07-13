@@ -179,8 +179,11 @@ app.get("/db/stampaDate", async function (req, res) {
   res.send(await mymongo.stampadate(req.query, mongoCredentials));
 });
 
-app.get("/db/stampaNoleggi", async function (req, res) {
-  res.send(await mymongo.noleggiDisponibili(mongoCredentials));
+app.post("/stampaNoleggi", async function (req, res) {
+  res.send(await mymongo.stampaNoleggi(mongoCredentials));
+});
+app.post("/insertNoleggio", async function (req, res) {
+  res.send(await mymongo.insertNoleggio(mongoCredentials));
 });
 
 app.post("/db/stampaPrenotazioni", async function (req, res) {
@@ -229,6 +232,10 @@ app.post("/push", async function (req, res) {
 
 app.get("/db/stampadate", async function (req, res) {
   res.send(await mymongo.stampadate(res.body));
+});
+
+app.post("/chiudiNoleggio", async function (req, res) {
+  res.send(await mymongo.chiudiNoleggio(req.body));
 });
 /* ========================== */
 /*                            */

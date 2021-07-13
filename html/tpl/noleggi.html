@@ -18,16 +18,31 @@
 			<h1 class="display-4 text-center">Noleggi attivi</h1>
 		</div>
 		<table class="table table-striped">
+			<tr>
+			
+				<th>Username</th>
+                <th>Mezzo</th>
+                <th>Date</th>
+
+			</tr> 
 			{{#each result}} 
-				{{#if @first}}
-					<tr>
-						{{#each this}}<th>{{@key}}</th>{{/each}}
-					</tr> 
-				{{/if}}
-				<tr>
-					{{#each this}}<td>{{this}}</td>{{/each}}
-				</tr> 
+				
+				<tr> 
+					<td>{{this.username}}</td>
+					<td>{{this.bicicletta}}</td>
+					{{#each date}}
+					{{#each this}}
+					<td>{{this.dateinit}}</td>
+					
+					{{/each}}
+				{{/each}}
+
+				
+					<td>
+				</td>
+				
 			{{/each}}
+			
 		</table>
 		<ol class="debug">
 			{{#each debug}}<li>{{this}}</li>{{/each}} 
