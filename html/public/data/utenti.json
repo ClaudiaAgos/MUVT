@@ -30,5 +30,13 @@
     "active": "off",
     "date": [],
     "bicicletta": []
+  },
+  {
+    "username": "admin",
+    "password": "000",
+    "ruolo": "admin",
+    "active": "off",
+    "date": [],
+    "bicicletta": []
   }
 ]

@@ -507,7 +507,7 @@ exports.prenotazioni = async function (q) {
   await mongo
     .db(dbname)
     .collection(collection[3])
-    .find({ active: "on" }, { differenza: 0 })
+    .find()
     .forEach((r) => {
       result.push(r);
     });
@@ -761,8 +761,8 @@ exports.catalogo = async function (q, credentials) {
 
   await mongo
     .db(dbname)
-    .collection(collection[1])
-    .find({ active: "on" })
+    .collection(collection[0])
+    .find(query)
     .forEach((r) => result.push(r));
 
   data.result = result;
@@ -790,16 +790,6 @@ exports.catalogoTutti = async function (q, credentials) {
   data.result = result;
   var out = await template.generate("catalogo.html", data);
   return out;
-};
-
-exports.updateOggetto = async function (q) {
-  //quando clicco su prenota allora le date vanno pushate nell'oggetto
-  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
-  await mongo.connect();
-
-  //nel momento in cui inserisco la bicicletta e le date, effettuo una find nella collezione 0 e pusho le date nel campo date
-
-  console.log(q);
 };
 
 exports.chiudiNoleggio = async function (q) {
@@ -860,6 +850,7 @@ exports.insertNoleggio = async function (q) {
   } catch (e) {
     console.log(e);
   }
+  mongo.close();
 };
 
 exports.stampaNoleggi = async function (q) {
@@ -875,7 +866,56 @@ exports.stampaNoleggi = async function (q) {
   await mongo
     .db(dbname)
     .collection(collection[3])
-    .find({ active: "on" }, { differenza: 0 })
+    .find()
+    .forEach((r) => {
+      result.push(r);
+    });
+
+  data.result = result;
+  var out = await template.generate("noleggi.html", data);
+  return out;
+};
+
+exports.cercaAmministratore = async function (q) {
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+  await mongo.connect();
+  let c = false;
+  let b = false;
+
+  if (q.user === "admin") {
+    c = await mongo
+      .db(dbname)
+      .collection(collection[1])
+      .find({
+        username: "admin",
+      })
+      .toArray();
+
+    if (Array.isArray(c) && c.length) {
+      b = true;
+    }
+
+    await mongo.close();
+  } else {
+    b = false;
+  }
+  return b;
+};
+
+exports.stampaNoleggiPersonali = async function (q) {
+  //const mongouri = `mongodb://${credentials.user}:${credentials.pwd}@${credentials.site}?writeConcern=majority`;
+
+  let result = [];
+  let data = {};
+  const mongo = new MongoClient(mongouri, { useUnifiedTopology: true });
+
+  await mongo.connect();
+
+  // in questo modo le stampa tutte
+  await mongo
+    .db(dbname)
+    .collection(collection[2])
+    .find({ active: "on" })
     .forEach((r) => {
       result.push(r);
     });

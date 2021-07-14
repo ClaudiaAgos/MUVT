@@ -95,7 +95,10 @@
       <hr />
       
 
-      <h1>TEST DATE</h1>
+      <h1>Noleggia o prenota</h1>
+      <h3>Il noleggio si limita al giorno stesso, la prenotazione per i giorni futuri.
+      
+      </h3>
 
     <form method="POST" action="/insertdate" name="prova">
 
@@ -114,14 +117,16 @@
       
       
     </form>
-
+<br>
     <form method="POST" action="/db/stampaPrenotazioni">
     <button type="submit">Prenota</button>
   </form>
+  <br>
   <form method="POST" action="/insertNoleggio">
     <button type="submit">Noleggia</button>
   </form>
 
+  <br>
 
     <h1>Prova per la ricerca di un oggetto con il calendario </h1>
     <form method="GET" action="/db/stampadate" id="search">
