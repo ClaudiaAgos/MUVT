@@ -3,32 +3,44 @@
     "mezzo": "Bicicletta",
     "condizione": "Nuova",
     "modello": "Graziella",
-    "prezzo": 5,
+    "prezzoFisso": 5,
+    "prezzoVariabile": 2,
     "tipo": "Pedale",
-    "available": null
+    "available": "on",
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
     "condizione": "Usata",
     "modello": "Mountain Bike",
-    "prezzo": 15,
+    "prezzoFisso": 5,
+    "prezzoVariabile": 2,
     "tipo": "Pedale",
-    "available": null
+    "available": "on",
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
     "condizione": "Nuova",
     "modello": "Corsa",
-    "prezzo": 5,
+    "prezzoFisso": 5,
+    "prezzoVariabile": 2,
     "tipo": "Pedale",
-    "available": null
+    "available": "on",
+    "noleggiato": "off",
+    "date": []
   },
   {
     "mezzo": "Bicicletta",
     "condizione": "Nuova",
     "modello": "Passeggio",
-    "prezzo": 5,
+    "prezzoFisso": 5,
+    "prezzoVariabile": 2,
     "tipo": "Elettrica",
-    "available": null
+    "available": "on",
+    "noleggiato": "off",
+    "date": []
   }
 ]

@@ -2,21 +2,31 @@
   {
     "username": "marioRossi",
     "password": "111",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off"
   },
   {
     "username": "lucaBianchi",
     "password": "222",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off"
   },
   {
     "username": "marcoLucia",
     "password": "333",
-    "ruolo": "cliente"
+    "ruolo": "cliente",
+    "active": "off"
   },
   {
     "username": "fedeRusso",
     "password": "000",
-    "ruolo": "admin"
+    "ruolo": "admin",
+    "active": "off"
+  },
+  {
+    "username": "admin",
+    "password": "000",
+    "ruolo": "admin",
+    "active": "off"
   }
 ]
